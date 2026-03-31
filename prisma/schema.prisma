@@ -1,0 +1,184 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema", "fullTextSearch", "extendedIndexes"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["neoplane"]
+}
+
+// --- ENUMS ---
+
+enum UserStatus {
+  ONLINE
+  OFFLINE
+  AWAY
+  DND
+
+  @@schema("neoplane")
+}
+
+enum ConversationType {
+  DIRECT
+  GROUP
+  CHANNEL
+
+  @@schema("neoplane")
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
+  SYSTEM
+
+  @@schema("neoplane")
+}
+
+enum ParticipantRole {
+  MEMBER
+  ADMIN
+
+  @@schema("neoplane")
+}
+
+// --- MODELS ---
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  username  String     @unique
+  password     String
+  avatar       String?
+  status       UserStatus @default(OFFLINE)
+  refreshToken String?
+  lastSeen     DateTime   @default(now())
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  // Relations
+  participatedIn       ConversationParticipant[]
+  createdConversations Conversation[]            @relation("ConversationCreator")
+  sentMessages         Message[]
+  reactions            MessageReaction[]
+  messageReads         MessageRead[]
+  notifications        Notification[]
+
+  @@index([username])
+  @@index([email])
+  @@schema("neoplane")
+}
+
+model Conversation {
+  id        String           @id @default(cuid())
+  name      String?
+  type      ConversationType @default(DIRECT)
+  isPrivate Boolean          @default(false)
+  creatorId String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  // Relations
+  createdBy    User                      @relation("ConversationCreator", fields: [creatorId], references: [id])
+  participants ConversationParticipant[]
+  messages     Message[]
+  messageReads MessageRead[]
+
+  @@index([creatorId])
+  @@schema("neoplane")
+}
+
+model ConversationParticipant {
+  id             String          @id @default(cuid())
+  userId         String
+  conversationId String
+  role           ParticipantRole @default(MEMBER)
+  joinedAt       DateTime        @default(now())
+
+  // Relations
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, conversationId])
+  @@index([userId])
+  @@index([conversationId])
+  @@schema("neoplane")
+}
+
+model Message {
+  id             String      @id @default(cuid())
+  content        String?     @db.Text
+  type           MessageType @default(TEXT)
+  fileUrl        String?
+  fileName       String?
+  fileSize       Int?
+  senderId       String
+  conversationId String
+  parentId       String?
+  isEdited       Boolean     @default(false)
+  isDeleted      Boolean     @default(false)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  // Relations
+  sender       User              @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  conversation Conversation      @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  parent       Message?          @relation("MessageThreads", fields: [parentId], references: [id])
+  replies      Message[]         @relation("MessageThreads")
+  reactions    MessageReaction[]
+
+  @@index([conversationId, createdAt])
+  @@index([senderId, createdAt])
+  @@index([parentId])
+  @@schema("neoplane")
+}
+
+model MessageReaction {
+  id        String   @id @default(cuid())
+  emoji     String
+  userId    String
+  messageId String
+  createdAt DateTime @default(now())
+
+  // Relations
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, messageId, emoji])
+  @@index([messageId])
+  @@schema("neoplane")
+}
+
+model MessageRead {
+  id                String   @id @default(cuid())
+  userId            String
+  conversationId    String
+  lastReadMessageId String
+  updatedAt         DateTime @default(now())
+
+  // Relations
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, conversationId])
+  @@index([userId, conversationId])
+  @@schema("neoplane")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  entityId  String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@index([userId, createdAt])
+  @@schema("neoplane")
+}
