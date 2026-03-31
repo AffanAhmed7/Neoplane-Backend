@@ -41,3 +41,8 @@ export const paginationSchema = z.object({
   cursor: z.string().optional(),
   limit: z.string().transform(Number).pipe(z.number().min(1).max(100)).default('50'),
 });
+
+export const togglePinSchema = z.object({
+  conversationId: z.string().cuid('Valid Conversation ID required for pinning'),
+  messageId: z.string().cuid('Valid Message ID required for pinning'),
+});

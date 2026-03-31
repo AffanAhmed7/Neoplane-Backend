@@ -117,6 +117,7 @@ model Message {
   senderId       String
   conversationId String
   parentId       String?
+  isPinned       Boolean     @default(false)
   isEdited       Boolean     @default(false)
   isDeleted      Boolean     @default(false)
   createdAt      DateTime    @default(now())

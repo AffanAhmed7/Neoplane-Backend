@@ -133,13 +133,20 @@ export class MessageService {
 
   /**
    * Edits the content of an existing message.
-   * Requirement: Only the original sender can edit.
+   * Requirement: Only the original sender can edit, within 5 minutes.
    */
   static async editMessage(messageId: string, userId: string, newContent: string) {
     const message = await prisma.message.findUnique({ where: { id: messageId } });
 
     if (!message || message.senderId !== userId) {
       const error: any = new Error('Unauthorized to edit this message');
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const timeDiff = new Date().getTime() - message.createdAt.getTime();
+    if (timeDiff > 5 * 60 * 1000) {
+      const error: any = new Error('Messages can only be edited within 5 minutes of sending');
       error.statusCode = 403;
       throw error;
     }
@@ -242,6 +249,35 @@ export class MessageService {
         conversationId,
         lastReadMessageId,
       },
+    });
+  }
+
+  /**
+   * Toggles the pinned status of a message.
+   * Requirement: Only participants of the conversation can pin messages.
+   */
+  static async togglePin(messageId: string, userId: string, conversationId: string) {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: { userId_conversationId: { userId, conversationId } },
+    });
+
+    if (!participant) {
+      const error: any = new Error('Unauthorized to pin messages in this conversation');
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const message = await prisma.message.findUnique({ where: { id: messageId } });
+
+    if (!message || message.conversationId !== conversationId) {
+      const error: any = new Error('Message not found in this conversation');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    return await prisma.message.update({
+      where: { id: messageId },
+      data: { isPinned: !message.isPinned },
     });
   }
 }

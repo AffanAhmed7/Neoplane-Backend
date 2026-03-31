@@ -127,4 +127,24 @@ export class MessageController {
       next(error);
     }
   }
+
+  /**
+   * Toggle the pinned status of a message.
+   */
+  static async togglePin(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { messageId } = req.params;
+      const { conversationId } = req.body;
+      const userId = (req as any).user?.userId;
+
+      const message = await MessageService.togglePin(messageId, userId, conversationId);
+
+      res.status(200).json({
+        status: 'success',
+        data: { message },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

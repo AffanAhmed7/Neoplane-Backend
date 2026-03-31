@@ -6,7 +6,8 @@ import {
   sendMessageSchema, 
   updateMessageSchema, 
   reactionSchema, 
-  paginationSchema 
+  paginationSchema,
+  togglePinSchema
 } from '../utils/validators/message.validator';
 
 /**
@@ -24,8 +25,9 @@ router.get('/:conversationId', authMiddleware, validateRequest(paginationSchema)
 router.patch('/:id', authMiddleware, validateRequest(updateMessageSchema), MessageController.edit);
 router.delete('/:id', authMiddleware, MessageController.delete);
 
-// 3. Reactions & Read Receipts
+// 3. Reactions, Pins, & Read Receipts
 router.post('/:id/react', authMiddleware, validateRequest(reactionSchema), MessageController.react);
+router.post('/:messageId/pin', authMiddleware, validateRequest(togglePinSchema), MessageController.togglePin);
 router.post('/:conversationId/read', authMiddleware, MessageController.read);
 
 export default router;

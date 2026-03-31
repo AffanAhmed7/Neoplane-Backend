@@ -118,4 +118,26 @@ export const registerChatHandlers = (io: Server, socket: Socket) => {
       if (callback) callback({ status: 'error', message: error.message });
     }
   });
+
+  /**
+   * Handle toggling a message's pinned status in real-time.
+   */
+  socket.on('message:pin', async (data: { messageId: string; conversationId: string }, callback: Function) => {
+    try {
+      const userId = (socket as any).user.userId;
+      const { messageId, conversationId } = data;
+
+      const pinnedMessage = await MessageService.togglePin(messageId, userId, conversationId);
+
+      // Broadcast the pinned status update to the conversation room
+      io.to(`conversation:${conversationId}`).emit('message:pinned_updated', {
+        messageId,
+        isPinned: pinnedMessage.isPinned,
+      });
+
+      if (callback) callback({ status: 'success', data: pinnedMessage });
+    } catch (error: any) {
+      if (callback) callback({ status: 'error', message: error.message });
+    }
+  });
 };
