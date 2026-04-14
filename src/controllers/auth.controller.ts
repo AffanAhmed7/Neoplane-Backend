@@ -11,11 +11,11 @@ export class AuthController {
    */
   static async register(req: Request, res: Response, next: NextFunction) {
     try {
-      const user = await AuthService.registerUser(req.body);
+      const data = await AuthService.registerUser(req.body);
       res.status(201).json({
         status: 'success',
         message: 'Registration successful',
-        data: { user },
+        data,
       });
     } catch (error) {
       next(error);
@@ -39,6 +39,25 @@ export class AuthController {
       next(error);
     }
   }
+
+  /**
+   * Log in a user via Google.
+   */
+  static async googleLogin(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { idToken } = req.body;
+      const data = await AuthService.googleLogin(idToken);
+
+      res.status(200).json({
+        status: 'success',
+        message: 'Google login successful',
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
 
   /**
    * Refresh the access token using a refresh token.
@@ -71,6 +90,29 @@ export class AuthController {
       res.status(200).json({
         status: 'success',
         message: 'Logged out successfully',
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Get current authenticated user details.
+   */
+  static async getMe(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = (req as any).user?.userId;
+      if (!userId) {
+        return res.status(401).json({
+          status: 'error',
+          message: 'Not authenticated',
+        });
+      }
+
+      const user = await AuthService.getUserById(userId);
+      res.status(200).json({
+        status: 'success',
+        data: { user },
       });
     } catch (error) {
       next(error);

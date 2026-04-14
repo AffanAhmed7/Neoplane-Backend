@@ -101,8 +101,22 @@ export class MessageService {
 
   /**
    * Retrieves messages for a conversation with cursor-based pagination.
+   * Requirement: Requester must be a participant of the conversation.
    */
-  static async getMessages(conversationId: string, pagination: { cursor?: string; limit: number }) {
+  static async getMessages(conversationId: string, pagination: { cursor?: string; limit: number }, requesterId: string) {
+    // 1. Verify membership
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: {
+        userId_conversationId: { userId: requesterId, conversationId },
+      },
+    });
+
+    if (!participant) {
+      const error: any = new Error('You do not have permission to view messages in this conversation');
+      error.statusCode = 403;
+      throw error;
+    }
+
     const { cursor, limit } = pagination;
 
     const messages = await prisma.message.findMany({

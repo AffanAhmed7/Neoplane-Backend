@@ -2,6 +2,7 @@ import prisma from '../utils/prisma';
 import { hashPassword, comparePasswords } from '../utils/password';
 import { generateAccessToken, generateRefreshToken, verifyToken } from '../utils/jwt';
 import { Prisma, User } from '@prisma/client';
+import admin from '../utils/firebase-admin';
 
 /**
  * Service layer for authentication business logic.
@@ -41,7 +42,29 @@ export class AuthService {
       },
     });
 
-    return user;
+    // Generate tokens for auto-login
+    const accessToken = generateAccessToken({ userId: user.id });
+    const refreshToken = generateRefreshToken({ userId: user.id });
+
+    // Store refresh token in DB
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { 
+        refreshToken,
+        status: 'ONLINE'
+      },
+    });
+
+    return {
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        createdAt: user.createdAt,
+      },
+      accessToken,
+      refreshToken,
+    };
   }
 
   /**
@@ -50,8 +73,14 @@ export class AuthService {
   static async loginUser(email: string, password: string) {
     const user = await prisma.user.findUnique({ where: { email } });
 
-    if (!user || !(await comparePasswords(password, user.password))) {
-      const error: any = new Error('Invalid email or password');
+    if (!user) {
+      const error: any = new Error('No account found with this email');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    if (!user.password || !(await comparePasswords(password, user.password))) {
+      const error: any = new Error('Incorrect password. Please try again.');
       error.statusCode = 401;
       throw error;
     }
@@ -78,6 +107,81 @@ export class AuthService {
       accessToken,
       refreshToken,
     };
+  }
+
+  /**
+   * authenticates a user via Google (Firebase ID Token).
+   * Verifies token, upserts user, and returns NeoPlane JWTs.
+   */
+  static async googleLogin(idToken: string) {
+    if (!admin) {
+      throw new Error('Firebase Admin is not initialized');
+    }
+
+    try {
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      const { email, uid, picture } = decodedToken;
+
+      if (!email) {
+        const error: any = new Error('Email not provided by Google');
+        error.statusCode = 400;
+        throw error;
+      }
+
+      // 1. Try to find user by firebaseUid
+      let user = await prisma.user.findUnique({ where: { firebaseUid: uid } });
+
+      if (!user) {
+        // 2. Try to find user by email (account linking)
+        user = await prisma.user.findUnique({ where: { email } });
+
+        if (user) {
+          // Link existing email account to Google
+          user = await prisma.user.update({
+            where: { id: user.id },
+            data: {
+              firebaseUid: uid,
+              provider: 'google',
+              avatar: picture || user.avatar,
+            },
+          });
+        } else {
+          // Reject new users via Google
+          const error: any = new Error('No account found for this Google email. Please register first.');
+          error.statusCode = 404;
+          throw error;
+        }
+      }
+
+      // Generate NeoPlane tokens
+      const accessToken = generateAccessToken({ userId: user.id });
+      const refreshToken = generateRefreshToken({ userId: user.id });
+
+      // Update refresh token and status
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          refreshToken,
+          status: 'ONLINE',
+        },
+      });
+
+      return {
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          avatar: user.avatar,
+        },
+        accessToken,
+        refreshToken,
+      };
+    } catch (err: any) {
+      console.error('Google Login Error:', err.message);
+      const error: any = new Error(err.message || 'Invalid Google ID token');
+      error.statusCode = 401;
+      throw error;
+    }
   }
 
   /**
@@ -112,5 +216,30 @@ export class AuthService {
         status: 'OFFLINE'
       },
     });
+  }
+
+  /**
+   * Retrieves a user by their ID, excluding sensitive fields.
+   */
+  static async getUserById(userId: string) {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        avatar: true,
+        status: true,
+        createdAt: true,
+      },
+    });
+
+    if (!user) {
+      const error: any = new Error('User not found');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    return user;
   }
 }

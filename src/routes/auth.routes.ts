@@ -17,10 +17,16 @@ router.post('/register', validateRequest(registerSchema), AuthController.registe
 // 2. User Login
 router.post('/login', validateRequest(loginSchema), AuthController.login);
 
+// 3. Google Login
+router.post('/google', AuthController.googleLogin);
+
 // 3. Token Refresh
 router.post('/refresh', validateRequest(refreshTokenSchema), AuthController.refresh);
 
 // 4. User Logout (Protected)
 router.post('/logout', authMiddleware, AuthController.logout);
+
+// 5. Get current user (Protected)
+router.get('/me', authMiddleware, AuthController.getMe);
 
 export default router;

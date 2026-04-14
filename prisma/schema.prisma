@@ -47,10 +47,12 @@ enum ParticipantRole {
 // --- MODELS ---
 
 model User {
-  id        String     @id @default(cuid())
-  email     String     @unique
-  username  String     @unique
-  password     String
+  id           String     @id @default(cuid())
+  email        String     @unique
+  username     String     @unique
+  password     String?
+  firebaseUid  String?    @unique
+  provider     String     @default("email")
   avatar       String?
   status       UserStatus @default(OFFLINE)
   refreshToken String?

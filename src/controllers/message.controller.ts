@@ -32,12 +32,13 @@ export class MessageController {
   static async list(req: Request, res: Response, next: NextFunction) {
     try {
       const { conversationId } = req.params;
+      const userId = (req as any).user?.userId;
       const { cursor, limit } = req.query as any;
 
       const messages = await MessageService.getMessages(conversationId, {
         cursor,
         limit: parseInt(limit, 10),
-      });
+      }, userId);
 
       res.status(200).json({
         status: 'success',

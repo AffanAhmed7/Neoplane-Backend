@@ -54,7 +54,8 @@ export class ConversationController {
   static async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const conversation = await ConversationService.getConversationById(id);
+      const userId = (req as any).user?.userId;
+      const conversation = await ConversationService.getConversationById(id, userId);
 
       res.status(200).json({
         status: 'success',
@@ -72,8 +73,9 @@ export class ConversationController {
     try {
       const { id } = req.params; // Conversation ID
       const { userId, role } = req.body;
+      const requesterId = (req as any).user?.userId;
 
-      const conversation = await ConversationService.addParticipant(id, userId, role);
+      const conversation = await ConversationService.addParticipant(id, userId, requesterId, role);
 
       res.status(200).json({
         status: 'success',

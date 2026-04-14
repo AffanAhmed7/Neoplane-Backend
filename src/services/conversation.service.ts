@@ -56,9 +56,16 @@ export class ConversationService {
   }
 
   /**
-   * Retrieves a conversation by its ID, including participants and the last message.
+   * Retrieves a conversation by its ID, verifying that the requester is a participant.
    */
-  static async getConversationById(id: string) {
+  static async getConversationById(id: string, requesterId: string) {
+    const isMember = await this.validateMembership(id, requesterId);
+    if (!isMember) {
+      const error: any = new Error('You do not have permission to view this conversation');
+      error.statusCode = 403;
+      throw error;
+    }
+
     const conversation = await prisma.conversation.findUnique({
       where: { id },
       include: {
@@ -130,9 +137,22 @@ export class ConversationService {
 
   /**
    * Adds a new participant to an existing conversation.
+   * Requirement: Only admins or the creator can add members.
    */
-  static async addParticipant(conversationId: string, userId: string, role: ParticipantRole = ParticipantRole.MEMBER) {
-    // Check if participant already exists
+  static async addParticipant(conversationId: string, userId: string, requesterId: string, role: ParticipantRole = ParticipantRole.MEMBER) {
+    const conversation = await this.getConversationById(conversationId, requesterId);
+
+    // 1. Authorization check
+    const requester = conversation.participants.find((p) => p.userId === requesterId);
+    const isAuthorized = requester?.role === ParticipantRole.ADMIN || conversation.creatorId === requesterId;
+
+    if (!isAuthorized) {
+      const error: any = new Error('Insufficient permissions to add participants');
+      error.statusCode = 403;
+      throw error;
+    }
+
+    // 2. Check if participant already exists
     const existing = await prisma.conversationParticipant.findUnique({
       where: {
         userId_conversationId: { userId, conversationId },
@@ -163,7 +183,7 @@ export class ConversationService {
    * Requirement: Only admins or the creator can remove members.
    */
   static async removeParticipant(conversationId: string, targetUserId: string, requesterId: string) {
-    const conversation = await this.getConversationById(conversationId);
+    const conversation = await this.getConversationById(conversationId, requesterId);
 
     // Authorization check
     const requester = conversation.participants.find((p) => p.userId === requesterId);
@@ -192,7 +212,7 @@ export class ConversationService {
    * Requirement: Only admins or the creator can update.
    */
   static async updateConversation(conversationId: string, requesterId: string, data: { name?: string; avatar?: string }) {
-    const conversation = await this.getConversationById(conversationId);
+    const conversation = await this.getConversationById(conversationId, requesterId);
 
     // Authorization check
     const requester = conversation.participants.find((p) => p.userId === requesterId);
@@ -208,5 +228,17 @@ export class ConversationService {
       where: { id: conversationId },
       data,
     });
+  }
+
+  /**
+   * Internal helper to check if a user is a participant in a conversation.
+   */
+  static async validateMembership(conversationId: string, userId: string): Promise<boolean> {
+    const participant = await prisma.conversationParticipant.findUnique({
+      where: {
+        userId_conversationId: { userId, conversationId },
+      },
+    });
+    return !!participant;
   }
 }
