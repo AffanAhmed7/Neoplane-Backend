@@ -9,7 +9,7 @@ dotenv.config();
  * Used for presigned URLs, direct uploads, and thumbnail generation.
  */
 
-const region = process.env.AWS_REGION || 'us-east-1';
+export const region = process.env.AWS_REGION || 'us-east-1';
 
 export const s3Client = new S3Client({
   region,

@@ -65,9 +65,9 @@ export class UserController {
   static async updateStatus(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = (req as any).user?.userId;
-      const { status } = req.body;
-      await UserService.updateStatus(userId, status);
-      res.status(200).json({ status: 'success', message: 'Status updated' });
+      const { status, customStatus } = req.body;
+      const user = await UserService.updateStatus(userId, status, customStatus);
+      res.status(200).json({ status: 'success', data: { user } });
     } catch (error) {
       next(error);
     }
@@ -80,8 +80,8 @@ export class UserController {
     try {
       const userId = (req as any).user?.userId;
       const { pinnedChannels, mutedChannels, mutedUsers } = req.body;
-      const preferences = await UserService.updatePreferences(userId, { pinnedChannels, mutedChannels, mutedUsers });
-      res.status(200).json({ status: 'success', data: { preferences } });
+      const user = await UserService.updatePreferences(userId, { pinnedChannels, mutedChannels, mutedUsers });
+      res.status(200).json({ status: 'success', data: { user } });
     } catch (error) {
       next(error);
     }

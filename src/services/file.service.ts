@@ -1,7 +1,7 @@
-import { PutObjectCommand } from '@aws-sdk/client-s3';
+import { PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import sharp from 'sharp';
-import { s3Client, BUCKET_NAME } from '../config/s3';
+import { s3Client, BUCKET_NAME, region } from '../config/s3';
 import { ALLOWED_MIME_TYPES, MAX_FILE_SIZE } from '../utils/validators/file.validator';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -29,7 +29,7 @@ export class FileService {
     return {
       uploadUrl,
       fileKey,
-      publicUrl: `https://${BUCKET_NAME}.s3.amazonaws.com/${fileKey}`,
+      publicUrl: `https://${BUCKET_NAME}.s3.${region}.amazonaws.com/${fileKey}`,
     };
   }
 
@@ -83,7 +83,36 @@ export class FileService {
 
     return {
       fileKey,
-      publicUrl: `https://${BUCKET_NAME}.s3.amazonaws.com/${fileKey}`,
+      publicUrl: `https://${BUCKET_NAME}.s3.${region}.amazonaws.com/${fileKey}`,
     };
+  }
+
+  /**
+   * Generates a temporary signed URL for viewing a private S3 object.
+   * Links expire by default in 3600 seconds (1 hour).
+   */
+  static async getSignedUrlForRead(fileUrl: string) {
+    if (!fileUrl) return null;
+
+    try {
+      // 1. Extract the file key from the absolute S3 URL
+      // Format: https://bucket.s3.region.amazonaws.com/uploads/guid-name.png
+      const urlParts = fileUrl.split('.amazonaws.com/');
+      if (urlParts.length < 2) return fileUrl; // Not an S3 URL or already processed
+
+      const fileKey = urlParts[1];
+
+      // 2. Generate the GET command
+      const command = new GetObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: fileKey,
+      });
+
+      // 3. Return the signed URL (expires in 1 hour)
+      return await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+    } catch (error) {
+      console.error('[FileService] Signing URL failed:', error);
+      return fileUrl; // Fallback to raw URL
+    }
   }
 }

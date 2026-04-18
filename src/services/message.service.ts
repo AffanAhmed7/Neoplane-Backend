@@ -1,6 +1,7 @@
 import prisma from '../utils/prisma';
 import { MessageType } from '@prisma/client';
 import { NotificationService } from './notification.service';
+import { FileService } from './file.service';
 
 /**
  * Service layer for managing messages, threads, and reactions.
@@ -103,7 +104,21 @@ export class MessageService {
       }
     }
 
-    return message;
+    // Return signed version
+    return await this.signMessageFiles(message);
+  }
+
+  /**
+   * Helper to sign S3 URLs for messages containing files.
+   */
+  private static async signMessageFiles(message: any) {
+    if (!message || !message.fileUrl) return message;
+    
+    const signedUrl = await FileService.getSignedUrlForRead(message.fileUrl);
+    return {
+      ...message,
+      fileUrl: signedUrl
+    };
   }
 
   /**
@@ -149,7 +164,8 @@ export class MessageService {
       },
     });
 
-    return messages;
+    // Sign URLs for all messages that have files
+    return await Promise.all(messages.map(m => this.signMessageFiles(m)));
   }
 
   /**
@@ -221,18 +237,23 @@ export class MessageService {
    * Toggles a reaction on a message for a user.
    */
   static async reactToMessage(messageId: string, userId: string, emoji: string) {
-    const existingReaction = await prisma.messageReaction.findUnique({
+    const existingSameEmoji = await prisma.messageReaction.findUnique({
       where: {
         userId_messageId_emoji: { userId, messageId, emoji },
       },
     });
 
-    if (existingReaction) {
+    if (existingSameEmoji) {
       await prisma.messageReaction.delete({
-        where: { id: existingReaction.id },
+        where: { id: existingSameEmoji.id },
       });
       return { action: 'removed' };
     } else {
+      // Remove any OTHER reaction by the same user on this message
+      await prisma.messageReaction.deleteMany({
+        where: { userId, messageId },
+      });
+
       const reaction = await prisma.messageReaction.create({
         data: { userId, messageId, emoji },
         include: { message: true },

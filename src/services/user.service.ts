@@ -19,6 +19,7 @@ export class UserService {
         bio: true,
         banner: true,
         status: true,
+        customStatus: true,
         lastSeen: true,
         pinnedChannels: true,
         mutedChannels: true,
@@ -66,6 +67,7 @@ export class UserService {
         bio: true,
         banner: true,
         status: true,
+        customStatus: true,
         pinnedChannels: true,
         mutedChannels: true,
         mutedUsers: true,
@@ -101,10 +103,27 @@ export class UserService {
   /**
    * Updates user online status.
    */
-  static async updateStatus(userId: string, status: string) {
+  static async updateStatus(userId: string, status: string, customStatus?: string) {
     return await prisma.user.update({
       where: { id: userId },
-      data: { status: status as any, lastSeen: new Date() },
+      data: { 
+        status: status as any, 
+        customStatus,
+        lastSeen: new Date() 
+      },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        avatar: true,
+        bio: true,
+        banner: true,
+        status: true,
+        customStatus: true,
+        pinnedChannels: true,
+        mutedChannels: true,
+        mutedUsers: true,
+      }
     });
   }
 
@@ -120,6 +139,13 @@ export class UserService {
       data,
       select: {
         id: true,
+        username: true,
+        email: true,
+        avatar: true,
+        bio: true,
+        banner: true,
+        status: true,
+        customStatus: true,
         pinnedChannels: true,
         mutedChannels: true,
         mutedUsers: true,

@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
+import fs from 'fs';
+import path from 'path';
 
 interface CustomError extends Error {
   statusCode?: number;
@@ -45,6 +47,9 @@ export const errorMiddleware = (
   
   if (isDevelopment && err.stack) {
     console.error(err.stack);
+    // Write to a local file for the AI assistant to read since I can't see the terminal
+    const logEntry = `\n[${new Date().toISOString()}] ${statusCode} | ${req.method} ${req.originalUrl}\n${err.stack}\n${'-'.repeat(50)}\n`;
+    fs.appendFileSync(path.join(process.cwd(), 'crash-report.txt'), logEntry);
   }
 
   res.status(statusCode).json({

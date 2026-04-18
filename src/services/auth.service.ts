@@ -38,6 +38,7 @@ export class AuthService {
         id: true,
         username: true,
         email: true,
+        avatar: true,
         createdAt: true,
       },
     });
@@ -60,6 +61,7 @@ export class AuthService {
         id: user.id,
         username: user.username,
         email: user.email,
+        avatar: (user as any).avatar, // Included for consistency
         createdAt: user.createdAt,
       },
       accessToken,
@@ -103,6 +105,7 @@ export class AuthService {
         id: user.id,
         username: user.username,
         email: user.email,
+        avatar: user.avatar,
       },
       accessToken,
       refreshToken,

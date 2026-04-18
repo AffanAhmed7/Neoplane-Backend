@@ -59,12 +59,10 @@ export const registerChatHandlers = (io: Server, socket: Socket) => {
       const result = await MessageService.deleteMessage(messageId, userId);
 
       // Broadcast deletion event (we send the ID so frontend can hide/update it)
-      // Note: MessageService.deleteMessage doesn't return the full message by default, 
-      // but we need the conversationId to broadcast.
-      // In a production app, we'd fetch the message first or have the service return it.
-      
-      // For now, assume the client provides the conversationId for broadcasting
-      io.to(`conversation:${data.conversationId}`).emit('message:deleted', { messageId });
+      io.to(`conversation:${data.conversationId}`).emit('message:deleted', { 
+        messageId, 
+        conversationId: data.conversationId 
+      });
 
       callback({ status: 'success' });
     } catch (error: any) {

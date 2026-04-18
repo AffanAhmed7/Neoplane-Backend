@@ -57,6 +57,7 @@ model User {
   bio          String?    @db.Text
   banner       String?
   status       UserStatus @default(OFFLINE)
+  customStatus String?
   refreshToken String?
   lastSeen     DateTime   @default(now())
   pinnedChannels String[]   @default([])
@@ -76,6 +77,9 @@ model User {
   receivedRequests     FriendRequest[]           @relation("ReceivedRequests")
   userFriends          Friend[]                  @relation("UserFriends")
   friendOf             Friend[]                  @relation("FriendOf")
+  sentInvites          ChannelInvite[]            @relation("SentInvites")
+  receivedInvites      ChannelInvite[]            @relation("ReceivedInvites")
+  joinRequests         JoinRequest[]
 
   @@index([username])
   @@index([email])
@@ -87,6 +91,8 @@ model Conversation {
   name        String?
   type        ConversationType @default(DIRECT)
   isPrivate   Boolean          @default(false)
+  isPublic    Boolean          @default(true)
+  isHidden    Boolean          @default(false)
   description String?          @db.Text
   heroImage   String?
   category    String?
@@ -102,6 +108,8 @@ model Conversation {
   participants ConversationParticipant[]
   messages     Message[]
   messageReads MessageRead[]
+  channelInvites ChannelInvite[]
+  joinRequests   JoinRequest[]
 
   @@index([creatorId])
   @@schema("neoplane")
@@ -239,5 +247,58 @@ model Friend {
 
   @@unique([userId, friendId])
   @@index([userId])
+  @@schema("neoplane")
+}
+
+enum ChannelInviteStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+
+  @@schema("neoplane")
+}
+
+enum JoinRequestStatus {
+  PENDING
+  APPROVED
+  DECLINED
+
+  @@schema("neoplane")
+}
+
+model JoinRequest {
+  id             String            @id @default(cuid())
+  userId         String
+  conversationId String
+  status         JoinRequestStatus @default(PENDING)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  // Relations
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, conversationId])
+  @@index([conversationId])
+  @@schema("neoplane")
+}
+
+model ChannelInvite {
+  id             String              @id @default(cuid())
+  conversationId String
+  inviterId      String
+  inviteeId      String
+  status         ChannelInviteStatus @default(PENDING)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  // Relations
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  inviter      User         @relation("SentInvites", fields: [inviterId], references: [id], onDelete: Cascade)
+  invitee      User         @relation("ReceivedInvites", fields: [inviteeId], references: [id], onDelete: Cascade)
+
+  @@unique([inviteeId, conversationId])
+  @@index([inviteeId, status])
+  @@index([conversationId])
   @@schema("neoplane")
 }

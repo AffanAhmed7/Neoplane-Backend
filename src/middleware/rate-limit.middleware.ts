@@ -16,8 +16,8 @@ const rateLimitHandler = (req: any, res: any) => {
  * Used for general endpoint protection against spam/DDoS.
  */
 export const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per `window`
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 1000, // Limit each IP to 1000 requests per `window`
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   handler: rateLimitHandler,
@@ -29,7 +29,7 @@ export const apiLimiter = rateLimit({
  */
 export const messageLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 30, // Limit each IP to 30 requests per minute
+  max: 300, // Limit each IP to 300 requests per minute
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req: any, res: any) => {
@@ -46,7 +46,7 @@ export const messageLimiter = rateLimit({
  */
 export const fileLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 5, // Limit each IP to 5 uploads per minute
+  max: 50, // Limit each IP to 50 uploads per minute
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req: any, res: any) => {

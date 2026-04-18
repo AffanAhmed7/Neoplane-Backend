@@ -1,0 +1,124 @@
+
+[2026-04-18T18:11:47.229Z] 500 | POST /api/files/upload
+NoSuchBucket: The specified bucket does not exist
+    at S3RestXmlProtocol.handleError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\core\dist-cjs\submodules\protocols\index.js:1842:27)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at S3RestXmlProtocol.deserializeResponse (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\core\dist-cjs\submodules\protocols\index.js:337:13)
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\core\dist-cjs\submodules\schema\index.js:27:24
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:387:20
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\middleware-retry\dist-cjs\index.js:251:46
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-flexible-checksums\dist-cjs\index.js:243:24
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:64:28
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:91:20
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-logger\dist-cjs\index.js:5:26
+--------------------------------------------------
+
+[2026-04-18T18:14:38.174Z] 500 | POST /api/files/upload
+NoSuchBucket: The specified bucket does not exist
+    at S3RestXmlProtocol.handleError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\core\dist-cjs\submodules\protocols\index.js:1842:27)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at S3RestXmlProtocol.deserializeResponse (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\core\dist-cjs\submodules\protocols\index.js:337:13)
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\core\dist-cjs\submodules\schema\index.js:27:24
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:387:20
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\middleware-retry\dist-cjs\index.js:251:46
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-flexible-checksums\dist-cjs\index.js:243:24
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:64:28
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:91:20
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-logger\dist-cjs\index.js:5:26
+--------------------------------------------------
+
+[2026-04-18T18:20:17.981Z] 401 | POST /api/auth/login
+Error: Incorrect password. Please try again.
+    at Function.loginUser (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\auth.service.ts:85:26)
+    at login (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\auth.controller.ts:31:20)
+--------------------------------------------------
+
+[2026-04-18T18:37:42.485Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
+Error: You do not have permission to view messages in this conversation
+    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
+    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
+--------------------------------------------------
+
+[2026-04-18T18:37:42.496Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
+Error: You do not have permission to view messages in this conversation
+    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
+    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
+--------------------------------------------------
+
+[2026-04-18T18:37:50.363Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
+Error: You do not have permission to view messages in this conversation
+    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
+    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
+--------------------------------------------------
+
+[2026-04-18T18:37:50.377Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
+Error: You do not have permission to view messages in this conversation
+    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
+    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
+--------------------------------------------------
+
+[2026-04-18T18:37:54.097Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
+Error: You do not have permission to view messages in this conversation
+    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
+    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
+--------------------------------------------------
+
+[2026-04-18T18:37:54.110Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
+Error: You do not have permission to view messages in this conversation
+    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
+    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
+--------------------------------------------------
+
+[2026-04-18T18:38:03.263Z] 403 | GET /api/messages/cmo2rgurb0007m5swq0p0x12m?limit=50
+Error: You do not have permission to view messages in this conversation
+    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
+    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
+--------------------------------------------------
+
+[2026-04-18T18:38:36.995Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
+Error: You do not have permission to view messages in this conversation
+    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
+    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
+--------------------------------------------------
+
+[2026-04-18T18:38:43.287Z] 403 | GET /api/messages/cmo2rgurb0007m5swq0p0x12m?limit=50
+Error: You do not have permission to view messages in this conversation
+    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
+    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
+--------------------------------------------------
+
+[2026-04-18T18:38:43.297Z] 403 | GET /api/messages/cmo2rgurb0007m5swq0p0x12m?limit=50
+Error: You do not have permission to view messages in this conversation
+    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
+    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
+--------------------------------------------------
+
+[2026-04-18T18:38:58.741Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
+Error: You do not have permission to view messages in this conversation
+    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
+    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
+--------------------------------------------------
+
+[2026-04-18T20:20:49.017Z] 409 | POST /api/friends/request
+Error: Friend request already sent
+    at Function.sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\friend.service.ts:47:26)
+    at sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\friend.controller.ts:41:23)
+--------------------------------------------------
+
+[2026-04-18T20:20:49.708Z] 409 | POST /api/friends/request
+Error: Friend request already sent
+    at Function.sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\friend.service.ts:47:26)
+    at sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\friend.controller.ts:41:23)
+--------------------------------------------------
+
+[2026-04-18T20:20:49.922Z] 409 | POST /api/friends/request
+Error: Friend request already sent
+    at Function.sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\friend.service.ts:47:26)
+    at sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\friend.controller.ts:41:23)
+--------------------------------------------------
+
+[2026-04-18T20:20:57.312Z] 409 | POST /api/friends/request
+Error: Friend request already sent
+    at Function.sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\friend.service.ts:47:26)
+    at sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\friend.controller.ts:41:23)
+--------------------------------------------------

@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 
 /**
  * JWT utility for access and refresh tokens.
- * Access Token: 15 min (Short lived)
- * Refresh Token: 7 days (Long lived)
+ * Access Token: 7 days (Long lived for better UX)
+ * Refresh Token: 30 days (Very long lived)
  */
 
 interface TokenPayload {
@@ -12,13 +12,13 @@ interface TokenPayload {
 
 export const generateAccessToken = (payload: TokenPayload): string => {
   return jwt.sign(payload, process.env.JWT_SECRET as string, {
-    expiresIn: '15m',
+    expiresIn: '7d',
   });
 };
 
 export const generateRefreshToken = (payload: TokenPayload): string => {
   return jwt.sign(payload, process.env.JWT_SECRET as string, {
-    expiresIn: '7d',
+    expiresIn: '30d',
   });
 };
 

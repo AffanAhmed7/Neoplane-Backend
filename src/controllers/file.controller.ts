@@ -20,7 +20,8 @@ export class FileController {
         status: 'success',
         data: result,
       });
-    } catch (error) {
+    } catch (error: any) {
+      console.error('[FileController] getUploadUrl FAILED:', error.message, error);
       next(error);
     }
   }
@@ -61,7 +62,8 @@ export class FileController {
           thumbnail: thumbnail?.publicUrl,
         },
       });
-    } catch (error) {
+    } catch (error: any) {
+      console.error('[FileController] upload FAILED:', error.message, error);
       next(error);
     }
   }

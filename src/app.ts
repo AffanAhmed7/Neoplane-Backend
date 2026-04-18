@@ -1,7 +1,10 @@
+import dotenv from 'dotenv';
+// Load environment variables immediately
+dotenv.config();
+
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import { errorMiddleware } from './middleware/error.middleware';
 import { connectDB } from './config/database';
 import authRouter from './routes/auth.routes';
@@ -14,9 +17,6 @@ import userRouter from './routes/user.routes';
 import friendRouter from './routes/friend.routes';
 import { apiLimiter, messageLimiter, fileLimiter } from './middleware/rate-limit.middleware';
 import { setupSockets } from './sockets/index';
-
-// Load environment variables
-dotenv.config();
 
 const app = express();
 const server = http.createServer(app);

@@ -11,7 +11,7 @@ export class ConversationController {
    */
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const { name, type, participantIds, description, category, heroImage, isPrivate, parentId } = req.body;
+      const { name, type, participantIds, description, category, heroImage, isPrivate, isPublic, isHidden, parentId } = req.body;
       const createdBy = (req as any).user?.userId;
 
       const conversation = await ConversationService.createConversation({
@@ -23,6 +23,8 @@ export class ConversationController {
         category,
         heroImage,
         isPrivate,
+        isPublic,
+        isHidden,
         parentId,
       });
 
@@ -72,19 +74,76 @@ export class ConversationController {
   }
 
   /**
-   * Add a new participant to a conversation.
+   * Invite a user to a conversation (sends an invite, does not directly add).
    */
   static async addParticipant(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params; // Conversation ID
-      const { userId, role } = req.body;
+      const { userId } = req.body;
       const requesterId = (req as any).user?.userId;
 
-      const conversation = await ConversationService.addParticipant(id, userId, requesterId, role);
+      const invite = await ConversationService.inviteParticipant(id, userId, requesterId);
 
       res.status(200).json({
         status: 'success',
-        data: { conversation },
+        message: 'Invite sent successfully',
+        data: { invite },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Accept a channel invite.
+   */
+  static async acceptInvite(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { inviteId } = req.params;
+      const userId = (req as any).user?.userId;
+
+      const result = await ConversationService.acceptInvite(inviteId, userId);
+
+      res.status(200).json({
+        status: 'success',
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Decline a channel invite.
+   */
+  static async declineInvite(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { inviteId } = req.params;
+      const userId = (req as any).user?.userId;
+
+      await ConversationService.declineInvite(inviteId, userId);
+
+      res.status(200).json({
+        status: 'success',
+        message: 'Invite declined',
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Get all pending invites for the current user.
+   */
+  static async getPendingInvites(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = (req as any).user?.userId;
+
+      const invites = await ConversationService.getPendingInvites(userId);
+
+      res.status(200).json({
+        status: 'success',
+        data: { invites },
       });
     } catch (error) {
       next(error);
@@ -151,18 +210,73 @@ export class ConversationController {
   }
 
   /**
-   * Join a public conversation.
+   * Join a public conversation or request to join a private one.
    */
   static async join(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
       const userId = (req as any).user?.userId;
 
-      const conversation = await ConversationService.joinConversation(id, userId);
+      const result = await ConversationService.joinConversation(id, userId);
+
+      res.status(200).json({
+        status: 'success',
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Get a conversation preview for non-members.
+   */
+  static async getPreview(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const conversation = await ConversationService.getConversationPreview(id);
 
       res.status(200).json({
         status: 'success',
         data: { conversation },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * List join requests for a conversation (Admin only).
+   */
+  static async getJoinRequests(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const userId = (req as any).user?.userId;
+      const requests = await ConversationService.getJoinRequests(id, userId);
+
+      res.status(200).json({
+        status: 'success',
+        data: { requests },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Approve or Decline a join request (Admin only).
+   */
+  static async resolveJoinRequest(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { requestId } = req.params;
+      const { status } = req.body; // 'APPROVED' | 'DECLINED'
+      const userId = (req as any).user?.userId;
+
+      const request = await ConversationService.resolveJoinRequest(requestId, userId, status);
+
+      res.status(200).json({
+        status: 'success',
+        data: { request },
       });
     } catch (error) {
       next(error);
