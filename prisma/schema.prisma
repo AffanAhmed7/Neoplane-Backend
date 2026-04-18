@@ -54,9 +54,14 @@ model User {
   firebaseUid  String?    @unique
   provider     String     @default("email")
   avatar       String?
+  bio          String?    @db.Text
+  banner       String?
   status       UserStatus @default(OFFLINE)
   refreshToken String?
   lastSeen     DateTime   @default(now())
+  pinnedChannels String[]   @default([])
+  mutedChannels  String[]   @default([])
+  mutedUsers     String[]   @default([])
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 
@@ -67,6 +72,10 @@ model User {
   reactions            MessageReaction[]
   messageReads         MessageRead[]
   notifications        Notification[]
+  sentRequests         FriendRequest[]           @relation("SentRequests")
+  receivedRequests     FriendRequest[]           @relation("ReceivedRequests")
+  userFriends          Friend[]                  @relation("UserFriends")
+  friendOf             Friend[]                  @relation("FriendOf")
 
   @@index([username])
   @@index([email])
@@ -74,16 +83,22 @@ model User {
 }
 
 model Conversation {
-  id        String           @id @default(cuid())
-  name      String?
-  type      ConversationType @default(DIRECT)
-  isPrivate Boolean          @default(false)
-  creatorId String
-  createdAt DateTime         @default(now())
+  id          String           @id @default(cuid())
+  name        String?
+  type        ConversationType @default(DIRECT)
+  isPrivate   Boolean          @default(false)
+  description String?          @db.Text
+  heroImage   String?
+  category    String?
+  creatorId   String
+  parentId    String?
+  createdAt   DateTime         @default(now())
   updatedAt DateTime         @updatedAt
 
   // Relations
   createdBy    User                      @relation("ConversationCreator", fields: [creatorId], references: [id])
+  parent       Conversation?             @relation("ConversationHierarchy", fields: [parentId], references: [id])
+  children     Conversation[]            @relation("ConversationHierarchy")
   participants ConversationParticipant[]
   messages     Message[]
   messageReads MessageRead[]
@@ -183,5 +198,46 @@ model Notification {
 
   @@index([userId, isRead])
   @@index([userId, createdAt])
+  @@schema("neoplane")
+}
+
+enum FriendRequestStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+
+  @@schema("neoplane")
+}
+
+model FriendRequest {
+  id         String              @id @default(cuid())
+  senderId   String
+  receiverId String
+  status     FriendRequestStatus @default(PENDING)
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
+
+  // Relations
+  sender   User @relation("SentRequests", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("ReceivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+  @@index([senderId])
+  @@index([receiverId])
+  @@schema("neoplane")
+}
+
+model Friend {
+  id        String   @id @default(cuid())
+  userId    String
+  friendId  String
+  createdAt DateTime @default(now())
+
+  // Relations
+  user   User @relation("UserFriends", fields: [userId], references: [id], onDelete: Cascade)
+  friend User @relation("FriendOf", fields: [friendId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, friendId])
+  @@index([userId])
   @@schema("neoplane")
 }

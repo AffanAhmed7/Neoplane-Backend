@@ -88,7 +88,9 @@ export const registerChatHandlers = (io: Server, socket: Socket) => {
         userId,
         emoji,
         action: result.action,
+        conversationId,
       });
+
 
       callback({ status: 'success', data: result });
     } catch (error: any) {
@@ -133,9 +135,36 @@ export const registerChatHandlers = (io: Server, socket: Socket) => {
       io.to(`conversation:${conversationId}`).emit('message:pinned_updated', {
         messageId,
         isPinned: pinnedMessage.isPinned,
+        conversationId,
       });
 
       if (callback) callback({ status: 'success', data: pinnedMessage });
+    } catch (error: any) {
+      if (callback) callback({ status: 'error', message: error.message });
+    }
+  });
+  
+  /**
+   * Handle joining a conversation room for real-time updates.
+   */
+  socket.on('room:join', async (data: { conversationId: string }, callback: Function) => {
+    try {
+      const userId = (socket as any).user.userId;
+      const { conversationId } = data;
+
+      // Verify membership before joining
+      const isMember = await MessageService.markAsRead(conversationId, userId, '').then(() => true).catch(() => false);
+      // Note: markAsRead is a safe way to check membership/connectivity in this context, 
+      // but we could also use a dedicated membership check if available in MessageService.
+      
+      if (!isMember) {
+        throw new Error('Unauthorized to join this room');
+      }
+
+      socket.join(`conversation:${conversationId}`);
+      console.log(`[Socket] User ${userId} joined room: conversation:${conversationId}`);
+
+      if (callback) callback({ status: 'success' });
     } catch (error: any) {
       if (callback) callback({ status: 'error', message: error.message });
     }

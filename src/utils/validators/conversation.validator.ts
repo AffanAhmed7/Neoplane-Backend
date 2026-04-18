@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ConversationType } from '@prisma/client';
+import { ConversationType, ParticipantRole } from '@prisma/client';
 
 /**
  * Validation schemas for conversation-related endpoints.
@@ -9,16 +9,21 @@ import { ConversationType } from '@prisma/client';
 export const createConversationSchema = z.object({
   name: z.string().optional(),
   type: z.nativeEnum(ConversationType),
-  participantIds: z.array(z.string()).min(1, 'At least one other participant is required'),
+  participantIds: z.array(z.string()),
+  description: z.string().optional(),
+  category: z.string().optional(),
+  heroImage: z.string().optional().or(z.literal('')),
+  isPrivate: z.boolean().optional(),
+  parentId: z.string().optional(),
 }).refine((data) => {
   // Logic for DIRECT: Exactly 2 participants (Self + 1 other)
-  // Logic for GROUP/CHANNEL: 2 or more participants (Self + 1 or more)
+  // Logic for GROUP/CHANNEL: 0 or more extra participants (Creator added by service)
   if (data.type === ConversationType.DIRECT) {
-    return data.participantIds.length === 1; // 1 other + 1 self
+    return data.participantIds.length === 1;
   }
-  return data.participantIds.length >= 1; // 1 other + 1 self = 2+
+  return true; // GROUP/CHANNEL can be created with 0 extra participants
 }, {
-  message: 'DIRECT conversations must have exactly 2 participants, GROUP/CHANNEL must have at least 2.',
+  message: 'DIRECT conversations must have exactly 2 participants.',
   path: ['participantIds'],
 });
 
@@ -30,6 +35,10 @@ export const updateConversationSchema = z.object({
 export const addParticipantSchema = z.object({
   userId: z.string().cuid(),
   role: z.enum(['MEMBER', 'ADMIN']).default('MEMBER'),
+});
+
+export const updateRoleSchema = z.object({
+  role: z.nativeEnum(ParticipantRole),
 });
 
 export const conversationIdParamSchema = z.object({

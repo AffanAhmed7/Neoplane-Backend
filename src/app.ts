@@ -10,6 +10,8 @@ import messageRouter from './routes/message.routes';
 import fileRouter from './routes/file.routes';
 import searchRouter from './routes/search.routes';
 import notificationRouter from './routes/notification.routes';
+import userRouter from './routes/user.routes';
+import friendRouter from './routes/friend.routes';
 import { apiLimiter, messageLimiter, fileLimiter } from './middleware/rate-limit.middleware';
 import { setupSockets } from './sockets/index';
 
@@ -28,11 +30,12 @@ connectDB();
 
 // 1. Standard production-ready middleware
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*', // Adjust in production to frontend domain
+  origin: process.env.CORS_ORIGIN || 'http://localhost:5173', 
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   credentials: true,
 }));
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 // Global Rate Limiting - Apply 100 req/min limit to all generic /api routes
 app.use('/api/', apiLimiter);
@@ -49,6 +52,8 @@ app.use('/api/files', fileLimiter, fileRouter);
 
 app.use('/api/search', searchRouter);
 app.use('/api/notifications', notificationRouter);
+app.use('/api/users', userRouter);
+app.use('/api/friends', friendRouter);
 
 // 3. Main health check route
 app.get('/health', (req, res) => {

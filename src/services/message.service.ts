@@ -60,6 +60,13 @@ export class MessageService {
           sender: {
             select: { id: true, username: true, avatar: true },
           },
+          reactions: {
+            include: {
+              user: {
+                select: { id: true, username: true },
+              },
+            },
+          },
         },
       });
 

@@ -11,7 +11,7 @@ export class ConversationController {
    */
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const { name, type, participantIds } = req.body;
+      const { name, type, participantIds, description, category, heroImage, isPrivate, parentId } = req.body;
       const createdBy = (req as any).user?.userId;
 
       const conversation = await ConversationService.createConversation({
@@ -19,6 +19,11 @@ export class ConversationController {
         type,
         createdBy,
         participantIds,
+        description,
+        category,
+        heroImage,
+        isPrivate,
+        parentId,
       });
 
       res.status(201).json({
@@ -105,9 +110,6 @@ export class ConversationController {
     }
   }
 
-  /**
-   * Update conversation metadata (name, avatar).
-   */
   static async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
@@ -118,6 +120,88 @@ export class ConversationController {
       res.status(200).json({
         status: 'success',
         data: { conversation },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Explore public conversations.
+   */
+  static async explore(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = (req as any).user?.userId;
+      const { category, query, sortBy } = req.query;
+
+      const conversations = await ConversationService.exploreConversations(userId, {
+        category: category as string,
+        query: query as string,
+        sortBy: sortBy as string,
+      });
+
+      res.status(200).json({
+        status: 'success',
+        results: conversations.length,
+        data: { conversations },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Join a public conversation.
+   */
+  static async join(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const userId = (req as any).user?.userId;
+
+      const conversation = await ConversationService.joinConversation(id, userId);
+
+      res.status(200).json({
+        status: 'success',
+        data: { conversation },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Delete a conversation.
+   */
+  static async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const requesterId = (req as any).user?.userId;
+
+      await ConversationService.deleteConversation(id, requesterId);
+
+      res.status(204).json({
+        status: 'success',
+        data: null,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Update a participant's role.
+   */
+  static async updateParticipantRole(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id, userId } = req.params;
+      const { role } = req.body;
+      const requesterId = (req as any).user?.userId;
+
+      const participant = await ConversationService.updateParticipantRole(id, userId, requesterId, role);
+
+      res.status(200).json({
+        status: 'success',
+        data: { participant },
       });
     } catch (error) {
       next(error);
