@@ -1452,3 +1452,19 @@ Error: An invite has already been sent to this user
     at Function.inviteParticipant (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:614:26)
     at addParticipant (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:85:22)
 --------------------------------------------------
+
+[2026-04-21T14:32:33.354Z] 409 | POST /api/conversations/invites/cmo8fsmrr0010ajhg8boum9md/accept
+PrismaClientKnownRequestError: 
+Invalid `prisma.conversationParticipant.create()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:680:38
+
+  677   where: { id: inviteId },
+  678   data: { status: ChannelInviteStatus.ACCEPTED },
+  679 }),
+→ 680 prisma.conversationParticipant.create(
+Unique constraint failed on the fields: (`userId`,`conversationId`)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+--------------------------------------------------
