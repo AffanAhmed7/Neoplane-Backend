@@ -12,7 +12,8 @@ export class SearchController {
    */
   static async messages(req: Request, res: Response, next: NextFunction) {
     try {
-      const { query, conversationId, type, limit } = req.query as any;
+      // Use validated data which includes Zod defaults and transformations
+      const { query, conversationId, type, limit } = (req as any).validatedData || req.query;
       const userId = (req as any).user.userId;
 
       const results = await SearchService.searchMessages({
@@ -20,7 +21,7 @@ export class SearchController {
         userId,
         conversationId,
         type,
-        limit: parseInt(limit, 10),
+        limit: Number(limit) || 20,
       });
 
       res.status(200).json({
@@ -38,7 +39,7 @@ export class SearchController {
    */
   static async users(req: Request, res: Response, next: NextFunction) {
     try {
-      const { query } = req.query as any;
+      const { query } = (req as any).validatedData || req.query;
 
       const results = await SearchService.searchUsers(query);
 
@@ -57,13 +58,13 @@ export class SearchController {
    */
   static async files(req: Request, res: Response, next: NextFunction) {
     try {
-      const { query, limit } = req.query as any;
+      const { query, limit } = (req as any).validatedData || req.query;
       const userId = (req as any).user.userId;
 
       const results = await SearchService.searchFiles({
         query,
         userId,
-        limit: parseInt(limit, 10),
+        limit: Number(limit) || 20,
       });
 
       res.status(200).json({

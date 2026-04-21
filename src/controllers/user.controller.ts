@@ -10,7 +10,7 @@ export class UserController {
    */
   static async getProfile(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const user = await UserService.getPublicProfile(id);
       res.status(200).json({ status: 'success', data: { user } });
     } catch (error) {

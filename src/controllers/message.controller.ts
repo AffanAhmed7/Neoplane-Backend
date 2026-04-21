@@ -31,7 +31,7 @@ export class MessageController {
    */
   static async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const { conversationId } = req.params;
+      const conversationId = req.params.conversationId as string;
       const userId = (req as any).user?.userId;
       const { cursor, limit } = req.query as any;
 
@@ -55,7 +55,7 @@ export class MessageController {
    */
   static async edit(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const userId = (req as any).user?.userId;
       const { content } = req.body;
 
@@ -75,10 +75,10 @@ export class MessageController {
    */
   static async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const messageId = req.params.messageId as string;
       const userId = (req as any).user?.userId;
 
-      await MessageService.deleteMessage(id, userId);
+      await MessageService.deleteMessage(messageId, userId);
 
       res.status(200).json({
         status: 'success',
@@ -94,7 +94,7 @@ export class MessageController {
    */
   static async react(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const userId = (req as any).user?.userId;
       const { emoji } = req.body;
 
@@ -114,7 +114,7 @@ export class MessageController {
    */
   static async read(req: Request, res: Response, next: NextFunction) {
     try {
-      const { conversationId } = req.params;
+      const conversationId = req.params.conversationId as string;
       const userId = (req as any).user?.userId;
       const { lastReadMessageId } = req.body;
 
@@ -134,7 +134,7 @@ export class MessageController {
    */
   static async togglePin(req: Request, res: Response, next: NextFunction) {
     try {
-      const { messageId } = req.params;
+      const messageId = req.params.messageId as string;
       const { conversationId } = req.body;
       const userId = (req as any).user?.userId;
 

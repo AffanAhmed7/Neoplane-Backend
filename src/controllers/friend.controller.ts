@@ -51,7 +51,7 @@ export class FriendController {
   static async acceptRequest(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = (req as any).user?.userId;
-      const { id } = req.params;
+      const id = req.params.id as string;
       const result = await FriendService.acceptRequest(userId, id);
       res.status(200).json({ status: 'success', data: result });
     } catch (error) {
@@ -65,7 +65,7 @@ export class FriendController {
   static async declineRequest(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = (req as any).user?.userId;
-      const { id } = req.params;
+      const id = req.params.id as string;
       await FriendService.declineRequest(userId, id);
       res.status(200).json({ status: 'success', message: 'Request removed' });
     } catch (error) {
@@ -79,7 +79,7 @@ export class FriendController {
   static async removeFriend(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = (req as any).user?.userId;
-      const { friendId } = req.params;
+      const friendId = req.params.friendId as string;
       await FriendService.removeFriend(userId, friendId);
       res.status(200).json({ status: 'success', message: 'Friend removed' });
     } catch (error) {
@@ -93,7 +93,7 @@ export class FriendController {
   static async checkFriendship(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = (req as any).user?.userId;
-      const { friendId } = req.params;
+      const friendId = req.params.friendId as string;
       const isFriend = await FriendService.areFriends(userId, friendId);
       res.status(200).json({ status: 'success', data: { isFriend } });
     } catch (error) {

@@ -1,124 +1,1454 @@
 
-[2026-04-18T18:11:47.229Z] 500 | POST /api/files/upload
-NoSuchBucket: The specified bucket does not exist
-    at S3RestXmlProtocol.handleError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\core\dist-cjs\submodules\protocols\index.js:1842:27)
+[2026-04-21T09:21:40.088Z] 403 | POST /api/auth/refresh
+Error: Invalid or expired refresh token
+    at Function.refreshToken (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\auth.service.ts:205:26)
+    at refresh (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\auth.controller.ts:68:38)
+    at Layer.handle [as handle_request] (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\express\lib\router\route.js:149:13)
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\src\middleware\validation.middleware.ts:26:7
     at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at S3RestXmlProtocol.deserializeResponse (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\core\dist-cjs\submodules\protocols\index.js:337:13)
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\core\dist-cjs\submodules\schema\index.js:27:24
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:387:20
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\middleware-retry\dist-cjs\index.js:251:46
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-flexible-checksums\dist-cjs\index.js:243:24
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:64:28
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:91:20
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-logger\dist-cjs\index.js:5:26
 --------------------------------------------------
 
-[2026-04-18T18:14:38.174Z] 500 | POST /api/files/upload
-NoSuchBucket: The specified bucket does not exist
-    at S3RestXmlProtocol.handleError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\core\dist-cjs\submodules\protocols\index.js:1842:27)
+[2026-04-21T09:21:40.103Z] 403 | POST /api/auth/refresh
+Error: Invalid or expired refresh token
+    at Function.refreshToken (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\auth.service.ts:205:26)
+    at refresh (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\auth.controller.ts:68:38)
+    at Layer.handle [as handle_request] (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\express\lib\router\route.js:149:13)
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\src\middleware\validation.middleware.ts:26:7
     at processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at S3RestXmlProtocol.deserializeResponse (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\core\dist-cjs\submodules\protocols\index.js:337:13)
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\core\dist-cjs\submodules\schema\index.js:27:24
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:387:20
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@smithy\middleware-retry\dist-cjs\index.js:251:46
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-flexible-checksums\dist-cjs\index.js:243:24
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:64:28
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-sdk-s3\dist-cjs\index.js:91:20
-    at E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@aws-sdk\middleware-logger\dist-cjs\index.js:5:26
 --------------------------------------------------
 
-[2026-04-18T18:20:17.981Z] 401 | POST /api/auth/login
+[2026-04-21T09:23:28.870Z] 403 | POST /api/auth/refresh
+Error: Invalid or expired refresh token
+    at Function.refreshToken (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\auth.service.ts:205:26)
+    at refresh (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\auth.controller.ts:68:38)
+    at Layer.handle [as handle_request] (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\express\lib\router\route.js:149:13)
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\src\middleware\validation.middleware.ts:26:7
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+--------------------------------------------------
+
+[2026-04-21T09:23:28.922Z] 403 | POST /api/auth/refresh
+Error: Invalid or expired refresh token
+    at Function.refreshToken (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\auth.service.ts:205:26)
+    at refresh (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\auth.controller.ts:68:38)
+    at Layer.handle [as handle_request] (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\express\lib\router\route.js:149:13)
+    at E:\Professional\Portfolio\NeoPlane\apps\backend\src\middleware\validation.middleware.ts:26:7
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+--------------------------------------------------
+
+[2026-04-21T09:28:23.268Z] 500 | GET /api/search/messages?query=us
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:33
+
+  24 // Prisma's 'search' operator handles basic word matching.
+  25 const searchString = query.trim().split(/\s+/).join(' | ');
+  26 
+→ 27 return await prisma.message.findMany({
+       where: {
+         conversation: {
+           participants: {
+             some: {
+               userId: "cmnzxtvyn00006n1wbgn9v5g2"
+             }
+           }
+         },
+         content: {
+           search: "us"
+         },
+         isDeleted: false
+       },
+       orderBy: {
+         createdAt: "desc"
+       },
+       include: {
+         sender: {
+           select: {
+             id: true,
+             username: true,
+             avatar: true
+           }
+         },
+         reactions: true,
+         _count: {
+           select: {
+             replies: true
+           }
+         }
+       },
+     + take: Int
+     })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:12)
+    at messages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:18:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:23.284Z] 500 | GET /api/search/files?query=us
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:33
+
+  85 static async searchFiles(data: { query: string; userId: string; limit: number }) {
+  86   const { query, userId, limit } = data;
+  87 
+→ 88   return await prisma.message.findMany({
+         where: {
+           conversation: {
+             participants: {
+               some: {
+                 userId: "cmnzxtvyn00006n1wbgn9v5g2"
+               }
+             }
+           },
+           type: {
+             in: [
+               "IMAGE",
+               "FILE"
+             ]
+           },
+           OR: [
+             {
+               fileName: {
+                 contains: "us",
+                 mode: "insensitive"
+               }
+             },
+             {
+               content: {
+                 contains: "us",
+                 mode: "insensitive"
+               }
+             }
+           ],
+           isDeleted: false
+         },
+         orderBy: {
+           createdAt: "desc"
+         },
+         include: {
+           sender: {
+             select: {
+               id: true,
+               username: true
+             }
+           }
+         },
+       + take: Int
+       })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchFiles (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:12)
+    at files (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:63:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:23.897Z] 500 | GET /api/search/messages?query=u
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:33
+
+  24 // Prisma's 'search' operator handles basic word matching.
+  25 const searchString = query.trim().split(/\s+/).join(' | ');
+  26 
+→ 27 return await prisma.message.findMany({
+       where: {
+         conversation: {
+           participants: {
+             some: {
+               userId: "cmnzxtvyn00006n1wbgn9v5g2"
+             }
+           }
+         },
+         content: {
+           search: "u"
+         },
+         isDeleted: false
+       },
+       orderBy: {
+         createdAt: "desc"
+       },
+       include: {
+         sender: {
+           select: {
+             id: true,
+             username: true,
+             avatar: true
+           }
+         },
+         reactions: true,
+         _count: {
+           select: {
+             replies: true
+           }
+         }
+       },
+     + take: Int
+     })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:12)
+    at messages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:18:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:23.904Z] 500 | GET /api/search/files?query=u
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:33
+
+  85 static async searchFiles(data: { query: string; userId: string; limit: number }) {
+  86   const { query, userId, limit } = data;
+  87 
+→ 88   return await prisma.message.findMany({
+         where: {
+           conversation: {
+             participants: {
+               some: {
+                 userId: "cmnzxtvyn00006n1wbgn9v5g2"
+               }
+             }
+           },
+           type: {
+             in: [
+               "IMAGE",
+               "FILE"
+             ]
+           },
+           OR: [
+             {
+               fileName: {
+                 contains: "u",
+                 mode: "insensitive"
+               }
+             },
+             {
+               content: {
+                 contains: "u",
+                 mode: "insensitive"
+               }
+             }
+           ],
+           isDeleted: false
+         },
+         orderBy: {
+           createdAt: "desc"
+         },
+         include: {
+           sender: {
+             select: {
+               id: true,
+               username: true
+             }
+           }
+         },
+       + take: Int
+       })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchFiles (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:12)
+    at files (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:63:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:26.574Z] 500 | GET /api/search/messages?query=u
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:33
+
+  24 // Prisma's 'search' operator handles basic word matching.
+  25 const searchString = query.trim().split(/\s+/).join(' | ');
+  26 
+→ 27 return await prisma.message.findMany({
+       where: {
+         conversation: {
+           participants: {
+             some: {
+               userId: "cmnzxtvyn00006n1wbgn9v5g2"
+             }
+           }
+         },
+         content: {
+           search: "u"
+         },
+         isDeleted: false
+       },
+       orderBy: {
+         createdAt: "desc"
+       },
+       include: {
+         sender: {
+           select: {
+             id: true,
+             username: true,
+             avatar: true
+           }
+         },
+         reactions: true,
+         _count: {
+           select: {
+             replies: true
+           }
+         }
+       },
+     + take: Int
+     })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:12)
+    at messages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:18:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:26.582Z] 500 | GET /api/search/files?query=u
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:33
+
+  85 static async searchFiles(data: { query: string; userId: string; limit: number }) {
+  86   const { query, userId, limit } = data;
+  87 
+→ 88   return await prisma.message.findMany({
+         where: {
+           conversation: {
+             participants: {
+               some: {
+                 userId: "cmnzxtvyn00006n1wbgn9v5g2"
+               }
+             }
+           },
+           type: {
+             in: [
+               "IMAGE",
+               "FILE"
+             ]
+           },
+           OR: [
+             {
+               fileName: {
+                 contains: "u",
+                 mode: "insensitive"
+               }
+             },
+             {
+               content: {
+                 contains: "u",
+                 mode: "insensitive"
+               }
+             }
+           ],
+           isDeleted: false
+         },
+         orderBy: {
+           createdAt: "desc"
+         },
+         include: {
+           sender: {
+             select: {
+               id: true,
+               username: true
+             }
+           }
+         },
+       + take: Int
+       })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchFiles (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:12)
+    at files (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:63:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:27.551Z] 500 | GET /api/search/messages?query=us
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:33
+
+  24 // Prisma's 'search' operator handles basic word matching.
+  25 const searchString = query.trim().split(/\s+/).join(' | ');
+  26 
+→ 27 return await prisma.message.findMany({
+       where: {
+         conversation: {
+           participants: {
+             some: {
+               userId: "cmnzxtvyn00006n1wbgn9v5g2"
+             }
+           }
+         },
+         content: {
+           search: "us"
+         },
+         isDeleted: false
+       },
+       orderBy: {
+         createdAt: "desc"
+       },
+       include: {
+         sender: {
+           select: {
+             id: true,
+             username: true,
+             avatar: true
+           }
+         },
+         reactions: true,
+         _count: {
+           select: {
+             replies: true
+           }
+         }
+       },
+     + take: Int
+     })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:12)
+    at messages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:18:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:27.558Z] 500 | GET /api/search/files?query=us
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:33
+
+  85 static async searchFiles(data: { query: string; userId: string; limit: number }) {
+  86   const { query, userId, limit } = data;
+  87 
+→ 88   return await prisma.message.findMany({
+         where: {
+           conversation: {
+             participants: {
+               some: {
+                 userId: "cmnzxtvyn00006n1wbgn9v5g2"
+               }
+             }
+           },
+           type: {
+             in: [
+               "IMAGE",
+               "FILE"
+             ]
+           },
+           OR: [
+             {
+               fileName: {
+                 contains: "us",
+                 mode: "insensitive"
+               }
+             },
+             {
+               content: {
+                 contains: "us",
+                 mode: "insensitive"
+               }
+             }
+           ],
+           isDeleted: false
+         },
+         orderBy: {
+           createdAt: "desc"
+         },
+         include: {
+           sender: {
+             select: {
+               id: true,
+               username: true
+             }
+           }
+         },
+       + take: Int
+       })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchFiles (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:12)
+    at files (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:63:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:28.550Z] 500 | GET /api/search/messages?query=u
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:33
+
+  24 // Prisma's 'search' operator handles basic word matching.
+  25 const searchString = query.trim().split(/\s+/).join(' | ');
+  26 
+→ 27 return await prisma.message.findMany({
+       where: {
+         conversation: {
+           participants: {
+             some: {
+               userId: "cmnzxtvyn00006n1wbgn9v5g2"
+             }
+           }
+         },
+         content: {
+           search: "u"
+         },
+         isDeleted: false
+       },
+       orderBy: {
+         createdAt: "desc"
+       },
+       include: {
+         sender: {
+           select: {
+             id: true,
+             username: true,
+             avatar: true
+           }
+         },
+         reactions: true,
+         _count: {
+           select: {
+             replies: true
+           }
+         }
+       },
+     + take: Int
+     })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:12)
+    at messages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:18:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:28.555Z] 500 | GET /api/search/files?query=u
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:33
+
+  85 static async searchFiles(data: { query: string; userId: string; limit: number }) {
+  86   const { query, userId, limit } = data;
+  87 
+→ 88   return await prisma.message.findMany({
+         where: {
+           conversation: {
+             participants: {
+               some: {
+                 userId: "cmnzxtvyn00006n1wbgn9v5g2"
+               }
+             }
+           },
+           type: {
+             in: [
+               "IMAGE",
+               "FILE"
+             ]
+           },
+           OR: [
+             {
+               fileName: {
+                 contains: "u",
+                 mode: "insensitive"
+               }
+             },
+             {
+               content: {
+                 contains: "u",
+                 mode: "insensitive"
+               }
+             }
+           ],
+           isDeleted: false
+         },
+         orderBy: {
+           createdAt: "desc"
+         },
+         include: {
+           sender: {
+             select: {
+               id: true,
+               username: true
+             }
+           }
+         },
+       + take: Int
+       })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchFiles (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:12)
+    at files (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:63:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:33.696Z] 500 | GET /api/search/messages?query=l
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:33
+
+  24 // Prisma's 'search' operator handles basic word matching.
+  25 const searchString = query.trim().split(/\s+/).join(' | ');
+  26 
+→ 27 return await prisma.message.findMany({
+       where: {
+         conversation: {
+           participants: {
+             some: {
+               userId: "cmnzxtvyn00006n1wbgn9v5g2"
+             }
+           }
+         },
+         content: {
+           search: "l"
+         },
+         isDeleted: false
+       },
+       orderBy: {
+         createdAt: "desc"
+       },
+       include: {
+         sender: {
+           select: {
+             id: true,
+             username: true,
+             avatar: true
+           }
+         },
+         reactions: true,
+         _count: {
+           select: {
+             replies: true
+           }
+         }
+       },
+     + take: Int
+     })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:12)
+    at messages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:18:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:33.703Z] 500 | GET /api/search/files?query=l
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:33
+
+  85 static async searchFiles(data: { query: string; userId: string; limit: number }) {
+  86   const { query, userId, limit } = data;
+  87 
+→ 88   return await prisma.message.findMany({
+         where: {
+           conversation: {
+             participants: {
+               some: {
+                 userId: "cmnzxtvyn00006n1wbgn9v5g2"
+               }
+             }
+           },
+           type: {
+             in: [
+               "IMAGE",
+               "FILE"
+             ]
+           },
+           OR: [
+             {
+               fileName: {
+                 contains: "l",
+                 mode: "insensitive"
+               }
+             },
+             {
+               content: {
+                 contains: "l",
+                 mode: "insensitive"
+               }
+             }
+           ],
+           isDeleted: false
+         },
+         orderBy: {
+           createdAt: "desc"
+         },
+         include: {
+           sender: {
+             select: {
+               id: true,
+               username: true
+             }
+           }
+         },
+       + take: Int
+       })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchFiles (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:12)
+    at files (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:63:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:34.641Z] 500 | GET /api/search/messages?query=li
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:33
+
+  24 // Prisma's 'search' operator handles basic word matching.
+  25 const searchString = query.trim().split(/\s+/).join(' | ');
+  26 
+→ 27 return await prisma.message.findMany({
+       where: {
+         conversation: {
+           participants: {
+             some: {
+               userId: "cmnzxtvyn00006n1wbgn9v5g2"
+             }
+           }
+         },
+         content: {
+           search: "li"
+         },
+         isDeleted: false
+       },
+       orderBy: {
+         createdAt: "desc"
+       },
+       include: {
+         sender: {
+           select: {
+             id: true,
+             username: true,
+             avatar: true
+           }
+         },
+         reactions: true,
+         _count: {
+           select: {
+             replies: true
+           }
+         }
+       },
+     + take: Int
+     })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:12)
+    at messages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:18:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:34.649Z] 500 | GET /api/search/files?query=li
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:33
+
+  85 static async searchFiles(data: { query: string; userId: string; limit: number }) {
+  86   const { query, userId, limit } = data;
+  87 
+→ 88   return await prisma.message.findMany({
+         where: {
+           conversation: {
+             participants: {
+               some: {
+                 userId: "cmnzxtvyn00006n1wbgn9v5g2"
+               }
+             }
+           },
+           type: {
+             in: [
+               "IMAGE",
+               "FILE"
+             ]
+           },
+           OR: [
+             {
+               fileName: {
+                 contains: "li",
+                 mode: "insensitive"
+               }
+             },
+             {
+               content: {
+                 contains: "li",
+                 mode: "insensitive"
+               }
+             }
+           ],
+           isDeleted: false
+         },
+         orderBy: {
+           createdAt: "desc"
+         },
+         include: {
+           sender: {
+             select: {
+               id: true,
+               username: true
+             }
+           }
+         },
+       + take: Int
+       })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchFiles (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:12)
+    at files (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:63:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:35.247Z] 500 | GET /api/search/messages?query=lil
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:33
+
+  24 // Prisma's 'search' operator handles basic word matching.
+  25 const searchString = query.trim().split(/\s+/).join(' | ');
+  26 
+→ 27 return await prisma.message.findMany({
+       where: {
+         conversation: {
+           participants: {
+             some: {
+               userId: "cmnzxtvyn00006n1wbgn9v5g2"
+             }
+           }
+         },
+         content: {
+           search: "lil"
+         },
+         isDeleted: false
+       },
+       orderBy: {
+         createdAt: "desc"
+       },
+       include: {
+         sender: {
+           select: {
+             id: true,
+             username: true,
+             avatar: true
+           }
+         },
+         reactions: true,
+         _count: {
+           select: {
+             replies: true
+           }
+         }
+       },
+     + take: Int
+     })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:12)
+    at messages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:18:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:35.252Z] 500 | GET /api/search/files?query=lil
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:33
+
+  85 static async searchFiles(data: { query: string; userId: string; limit: number }) {
+  86   const { query, userId, limit } = data;
+  87 
+→ 88   return await prisma.message.findMany({
+         where: {
+           conversation: {
+             participants: {
+               some: {
+                 userId: "cmnzxtvyn00006n1wbgn9v5g2"
+               }
+             }
+           },
+           type: {
+             in: [
+               "IMAGE",
+               "FILE"
+             ]
+           },
+           OR: [
+             {
+               fileName: {
+                 contains: "lil",
+                 mode: "insensitive"
+               }
+             },
+             {
+               content: {
+                 contains: "lil",
+                 mode: "insensitive"
+               }
+             }
+           ],
+           isDeleted: false
+         },
+         orderBy: {
+           createdAt: "desc"
+         },
+         include: {
+           sender: {
+             select: {
+               id: true,
+               username: true
+             }
+           }
+         },
+       + take: Int
+       })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchFiles (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:12)
+    at files (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:63:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:35.595Z] 500 | GET /api/search/messages?query=lili
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:33
+
+  24 // Prisma's 'search' operator handles basic word matching.
+  25 const searchString = query.trim().split(/\s+/).join(' | ');
+  26 
+→ 27 return await prisma.message.findMany({
+       where: {
+         conversation: {
+           participants: {
+             some: {
+               userId: "cmnzxtvyn00006n1wbgn9v5g2"
+             }
+           }
+         },
+         content: {
+           search: "lili"
+         },
+         isDeleted: false
+       },
+       orderBy: {
+         createdAt: "desc"
+       },
+       include: {
+         sender: {
+           select: {
+             id: true,
+             username: true,
+             avatar: true
+           }
+         },
+         reactions: true,
+         _count: {
+           select: {
+             replies: true
+           }
+         }
+       },
+     + take: Int
+     })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:12)
+    at messages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:18:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:35.603Z] 500 | GET /api/search/files?query=lili
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:33
+
+  85 static async searchFiles(data: { query: string; userId: string; limit: number }) {
+  86   const { query, userId, limit } = data;
+  87 
+→ 88   return await prisma.message.findMany({
+         where: {
+           conversation: {
+             participants: {
+               some: {
+                 userId: "cmnzxtvyn00006n1wbgn9v5g2"
+               }
+             }
+           },
+           type: {
+             in: [
+               "IMAGE",
+               "FILE"
+             ]
+           },
+           OR: [
+             {
+               fileName: {
+                 contains: "lili",
+                 mode: "insensitive"
+               }
+             },
+             {
+               content: {
+                 contains: "lili",
+                 mode: "insensitive"
+               }
+             }
+           ],
+           isDeleted: false
+         },
+         orderBy: {
+           createdAt: "desc"
+         },
+         include: {
+           sender: {
+             select: {
+               id: true,
+               username: true
+             }
+           }
+         },
+       + take: Int
+       })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchFiles (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:12)
+    at files (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:63:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:41.066Z] 500 | GET /api/search/messages?query=L
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:33
+
+  24 // Prisma's 'search' operator handles basic word matching.
+  25 const searchString = query.trim().split(/\s+/).join(' | ');
+  26 
+→ 27 return await prisma.message.findMany({
+       where: {
+         conversation: {
+           participants: {
+             some: {
+               userId: "cmnzxtvyn00006n1wbgn9v5g2"
+             }
+           }
+         },
+         content: {
+           search: "L"
+         },
+         isDeleted: false
+       },
+       orderBy: {
+         createdAt: "desc"
+       },
+       include: {
+         sender: {
+           select: {
+             id: true,
+             username: true,
+             avatar: true
+           }
+         },
+         reactions: true,
+         _count: {
+           select: {
+             replies: true
+           }
+         }
+       },
+     + take: Int
+     })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:12)
+    at messages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:18:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:41.071Z] 500 | GET /api/search/files?query=L
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:33
+
+  85 static async searchFiles(data: { query: string; userId: string; limit: number }) {
+  86   const { query, userId, limit } = data;
+  87 
+→ 88   return await prisma.message.findMany({
+         where: {
+           conversation: {
+             participants: {
+               some: {
+                 userId: "cmnzxtvyn00006n1wbgn9v5g2"
+               }
+             }
+           },
+           type: {
+             in: [
+               "IMAGE",
+               "FILE"
+             ]
+           },
+           OR: [
+             {
+               fileName: {
+                 contains: "L",
+                 mode: "insensitive"
+               }
+             },
+             {
+               content: {
+                 contains: "L",
+                 mode: "insensitive"
+               }
+             }
+           ],
+           isDeleted: false
+         },
+         orderBy: {
+           createdAt: "desc"
+         },
+         include: {
+           sender: {
+             select: {
+               id: true,
+               username: true
+             }
+           }
+         },
+       + take: Int
+       })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchFiles (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:12)
+    at files (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:63:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:41.982Z] 500 | GET /api/search/messages?query=Li
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:33
+
+  24 // Prisma's 'search' operator handles basic word matching.
+  25 const searchString = query.trim().split(/\s+/).join(' | ');
+  26 
+→ 27 return await prisma.message.findMany({
+       where: {
+         conversation: {
+           participants: {
+             some: {
+               userId: "cmnzxtvyn00006n1wbgn9v5g2"
+             }
+           }
+         },
+         content: {
+           search: "Li"
+         },
+         isDeleted: false
+       },
+       orderBy: {
+         createdAt: "desc"
+       },
+       include: {
+         sender: {
+           select: {
+             id: true,
+             username: true,
+             avatar: true
+           }
+         },
+         reactions: true,
+         _count: {
+           select: {
+             replies: true
+           }
+         }
+       },
+     + take: Int
+     })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:27:12)
+    at messages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:18:23)
+--------------------------------------------------
+
+[2026-04-21T09:28:41.988Z] 500 | GET /api/search/files?query=Li
+PrismaClientValidationError: 
+Invalid `prisma.message.findMany()` invocation in
+E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:33
+
+  85 static async searchFiles(data: { query: string; userId: string; limit: number }) {
+  86   const { query, userId, limit } = data;
+  87 
+→ 88   return await prisma.message.findMany({
+         where: {
+           conversation: {
+             participants: {
+               some: {
+                 userId: "cmnzxtvyn00006n1wbgn9v5g2"
+               }
+             }
+           },
+           type: {
+             in: [
+               "IMAGE",
+               "FILE"
+             ]
+           },
+           OR: [
+             {
+               fileName: {
+                 contains: "Li",
+                 mode: "insensitive"
+               }
+             },
+             {
+               content: {
+                 contains: "Li",
+                 mode: "insensitive"
+               }
+             }
+           ],
+           isDeleted: false
+         },
+         orderBy: {
+           createdAt: "desc"
+         },
+         include: {
+           sender: {
+             select: {
+               id: true,
+               username: true
+             }
+           }
+         },
+       + take: Int
+       })
+
+Argument `take` is missing.
+    at wn (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:29:1363)
+    at $n.handleRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6958)
+    at $n.handleAndLogRequestError (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (E:\Professional\Portfolio\NeoPlane\apps\backend\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at Function.searchFiles (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\search.service.ts:88:12)
+    at files (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\search.controller.ts:63:23)
+--------------------------------------------------
+
+[2026-04-21T10:51:53.498Z] 401 | POST /api/auth/login
 Error: Incorrect password. Please try again.
     at Function.loginUser (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\auth.service.ts:85:26)
     at login (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\auth.controller.ts:31:20)
 --------------------------------------------------
 
-[2026-04-18T18:37:42.485Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
-Error: You do not have permission to view messages in this conversation
-    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
-    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
---------------------------------------------------
-
-[2026-04-18T18:37:42.496Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
-Error: You do not have permission to view messages in this conversation
-    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
-    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
---------------------------------------------------
-
-[2026-04-18T18:37:50.363Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
-Error: You do not have permission to view messages in this conversation
-    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
-    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
---------------------------------------------------
-
-[2026-04-18T18:37:50.377Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
-Error: You do not have permission to view messages in this conversation
-    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
-    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
---------------------------------------------------
-
-[2026-04-18T18:37:54.097Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
-Error: You do not have permission to view messages in this conversation
-    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
-    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
---------------------------------------------------
-
-[2026-04-18T18:37:54.110Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
-Error: You do not have permission to view messages in this conversation
-    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
-    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
---------------------------------------------------
-
-[2026-04-18T18:38:03.263Z] 403 | GET /api/messages/cmo2rgurb0007m5swq0p0x12m?limit=50
-Error: You do not have permission to view messages in this conversation
-    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
-    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
---------------------------------------------------
-
-[2026-04-18T18:38:36.995Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
-Error: You do not have permission to view messages in this conversation
-    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
-    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
---------------------------------------------------
-
-[2026-04-18T18:38:43.287Z] 403 | GET /api/messages/cmo2rgurb0007m5swq0p0x12m?limit=50
-Error: You do not have permission to view messages in this conversation
-    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
-    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
---------------------------------------------------
-
-[2026-04-18T18:38:43.297Z] 403 | GET /api/messages/cmo2rgurb0007m5swq0p0x12m?limit=50
-Error: You do not have permission to view messages in this conversation
-    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
-    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
---------------------------------------------------
-
-[2026-04-18T18:38:58.741Z] 403 | GET /api/messages/cmo4fx1gi002k119k2kz1fjvj?limit=50
-Error: You do not have permission to view messages in this conversation
-    at Function.getMessages (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\message.service.ts:137:26)
-    at list (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\message.controller.ts:38:24)
---------------------------------------------------
-
-[2026-04-18T20:20:49.017Z] 409 | POST /api/friends/request
+[2026-04-21T10:52:07.245Z] 409 | POST /api/friends/request
 Error: Friend request already sent
     at Function.sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\friend.service.ts:47:26)
     at sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\friend.controller.ts:41:23)
 --------------------------------------------------
 
-[2026-04-18T20:20:49.708Z] 409 | POST /api/friends/request
-Error: Friend request already sent
-    at Function.sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\friend.service.ts:47:26)
-    at sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\friend.controller.ts:41:23)
+[2026-04-21T13:19:13.268Z] 400 | POST /api/conversations/cmo8mlk6n006obag1yxy6haq1/join
+Error: User is already a participant
+    at Function.joinConversation (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:464:26)
+    at join (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:221:22)
 --------------------------------------------------
 
-[2026-04-18T20:20:49.922Z] 409 | POST /api/friends/request
-Error: Friend request already sent
-    at Function.sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\friend.service.ts:47:26)
-    at sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\friend.controller.ts:41:23)
+[2026-04-21T13:19:14.801Z] 400 | POST /api/conversations/cmo8mlk6n006obag1yxy6haq1/join
+Error: User is already a participant
+    at Function.joinConversation (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:464:26)
+    at join (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:221:22)
 --------------------------------------------------
 
-[2026-04-18T20:20:57.312Z] 409 | POST /api/friends/request
-Error: Friend request already sent
-    at Function.sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\friend.service.ts:47:26)
-    at sendRequest (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\friend.controller.ts:41:23)
+[2026-04-21T13:19:18.956Z] 400 | POST /api/conversations/cmo8mlk6n006obag1yxy6haq1/join
+Error: User is already a participant
+    at Function.joinConversation (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:464:26)
+    at join (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:221:22)
+--------------------------------------------------
+
+[2026-04-21T13:28:54.182Z] 400 | POST /api/conversations/cmo8mlk6n006obag1yxy6haq1/join
+Error: User is already a participant
+    at Function.joinConversation (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:464:26)
+    at join (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:221:22)
+--------------------------------------------------
+
+[2026-04-21T13:41:38.808Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:41:40.507Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:43:38.654Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:43:40.490Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:43:53.459Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:43:54.822Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:44:35.771Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:44:44.419Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:44:46.157Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:44:50.091Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:44:53.570Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:48:31.516Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:48:34.013Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:48:39.367Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:48:40.601Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/accept
+Error: Invite not found or does not belong to you
+    at Function.acceptInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:663:26)
+    at acceptInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:105:22)
+--------------------------------------------------
+
+[2026-04-21T13:48:59.571Z] 404 | POST /api/conversations/invites/cmo8nxf8u0006g8mcq9hc1i4i/decline
+Error: Invite not found or does not belong to you
+    at Function.declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:724:26)
+    at declineInvite (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:124:7)
+--------------------------------------------------
+
+[2026-04-21T13:50:03.912Z] 400 | POST /api/conversations/cmo8o2zcu000411hc14bovf39/participants
+Error: An invite has already been sent to this user
+    at Function.inviteParticipant (E:\Professional\Portfolio\NeoPlane\apps\backend\src\services\conversation.service.ts:614:26)
+    at addParticipant (E:\Professional\Portfolio\NeoPlane\apps\backend\src\controllers\conversation.controller.ts:85:22)
 --------------------------------------------------

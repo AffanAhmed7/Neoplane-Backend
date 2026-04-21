@@ -76,6 +76,12 @@ export class MessageService {
         data: { updatedAt: new Date() },
       });
 
+      // 4. Auto-unhide conversation for all participants
+      await tx.conversationParticipant.updateMany({
+        where: { conversationId },
+        data: { isHidden: false }
+      });
+
       return newMessage;
     });
 
@@ -142,7 +148,10 @@ export class MessageService {
     const { cursor, limit } = pagination;
 
     const messages = await prisma.message.findMany({
-      where: { conversationId },
+      where: { 
+        conversationId,
+        createdAt: participant.lastClearedAt ? { gt: participant.lastClearedAt } : undefined
+      },
       take: limit,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,

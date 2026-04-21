@@ -49,3 +49,7 @@ export const participantUserIdParamSchema = z.object({
   id: z.string().cuid(),
   userId: z.string().cuid(),
 });
+
+export const resolveRequestSchema = z.object({
+  action: z.enum(['ACCEPT', 'REJECT']),
+});

@@ -17,11 +17,10 @@ export const validateRequest = (schema: ZodSchema) => {
       // Because most existing schemas are flat (e.g., z.object({ query: z.string() })),
       // we merge the properties to validate seamlessly against flat definitions.
       const payload = { ...req.body, ...req.query, ...req.params };
-      
       const validatedData = await schema.parseAsync(payload);
       
-      // Optionally attach validated data natively
-      // req.validatedData = validatedData;
+      // Attach validated data so controllers can access transformed/defaulted values
+      (req as any).validatedData = validatedData;
 
       next();
     } catch (error) {

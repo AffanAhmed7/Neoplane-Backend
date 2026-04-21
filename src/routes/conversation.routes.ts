@@ -6,7 +6,8 @@ import {
   createConversationSchema, 
   updateConversationSchema, 
   addParticipantSchema,
-  updateRoleSchema
+  updateRoleSchema,
+  resolveRequestSchema
 } from '../utils/validators/conversation.validator';
 
 /**
@@ -15,6 +16,11 @@ import {
  */
 
 const router = Router();
+
+// 4. Channel Invites (Specialized routes must come before parameterized /:id)
+router.get('/invites/pending', authMiddleware, ConversationController.getPendingInvites);
+router.post('/invites/:inviteId/accept', authMiddleware, ConversationController.acceptInvite);
+router.post('/invites/:inviteId/decline', authMiddleware, ConversationController.declineInvite);
 
 // 1. Conversation Creation, Exploration & Retrieval
 router.post('/', authMiddleware, validateRequest(createConversationSchema), ConversationController.create);
@@ -27,6 +33,7 @@ router.get('/:id/preview', authMiddleware, ConversationController.getPreview);
 router.post('/:id/join', authMiddleware, ConversationController.join);
 router.get('/:id/join-requests', authMiddleware, ConversationController.getJoinRequests);
 router.post('/join-requests/:requestId/resolve', authMiddleware, ConversationController.resolveJoinRequest);
+router.post('/:id/resolve', authMiddleware, validateRequest(resolveRequestSchema), ConversationController.resolveRequest);
 
 // 2. Metadata Updates
 router.patch('/:id', authMiddleware, validateRequest(updateConversationSchema), ConversationController.update);
@@ -36,10 +43,5 @@ router.delete('/:id', authMiddleware, ConversationController.delete);
 router.post('/:id/participants', authMiddleware, validateRequest(addParticipantSchema), ConversationController.addParticipant);
 router.patch('/:id/participants/:userId/role', authMiddleware, validateRequest(updateRoleSchema), ConversationController.updateParticipantRole);
 router.delete('/:id/participants/:userId', authMiddleware, ConversationController.removeParticipant);
-
-// 4. Channel Invites
-router.get('/invites/pending', authMiddleware, ConversationController.getPendingInvites);
-router.post('/invites/:inviteId/accept', authMiddleware, ConversationController.acceptInvite);
-router.post('/invites/:inviteId/decline', authMiddleware, ConversationController.declineInvite);
 
 export default router;

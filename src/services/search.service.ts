@@ -20,6 +20,9 @@ export class SearchService {
   }) {
     const { query, userId, conversationId, type, limit } = data;
 
+    // Ensure limit is a valid positive integer
+    const safeLimit = Math.max(1, Math.min(Number(limit) || 20, 100));
+
     // Transform query for PostgreSQL tsvector (simple space-separated words)
     // Prisma's 'search' operator handles basic word matching.
     const searchString = query.trim().split(/\s+/).join(' | ');
@@ -42,7 +45,7 @@ export class SearchService {
         },
         isDeleted: false,
       },
-      take: limit,
+      take: safeLimit,
       orderBy: { createdAt: 'desc' },
       include: {
         sender: {
@@ -85,6 +88,9 @@ export class SearchService {
   static async searchFiles(data: { query: string; userId: string; limit: number }) {
     const { query, userId, limit } = data;
 
+    // Ensure limit is a valid positive integer
+    const safeLimit = Math.max(1, Math.min(Number(limit) || 20, 100));
+
     return await prisma.message.findMany({
       where: {
         conversation: {
@@ -101,7 +107,7 @@ export class SearchService {
         ],
         isDeleted: false,
       },
-      take: limit,
+      take: safeLimit,
       orderBy: { createdAt: 'desc' },
       include: {
         sender: {

@@ -60,7 +60,7 @@ export class ConversationController {
    */
   static async getById(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const userId = (req as any).user?.userId;
       const conversation = await ConversationService.getConversationById(id, userId);
 
@@ -78,7 +78,7 @@ export class ConversationController {
    */
   static async addParticipant(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params; // Conversation ID
+      const id = req.params.id as string; // Conversation ID
       const { userId } = req.body;
       const requesterId = (req as any).user?.userId;
 
@@ -99,7 +99,7 @@ export class ConversationController {
    */
   static async acceptInvite(req: Request, res: Response, next: NextFunction) {
     try {
-      const { inviteId } = req.params;
+      const inviteId = req.params.inviteId as string;
       const userId = (req as any).user?.userId;
 
       const result = await ConversationService.acceptInvite(inviteId, userId);
@@ -118,7 +118,7 @@ export class ConversationController {
    */
   static async declineInvite(req: Request, res: Response, next: NextFunction) {
     try {
-      const { inviteId } = req.params;
+      const inviteId = req.params.inviteId as string;
       const userId = (req as any).user?.userId;
 
       await ConversationService.declineInvite(inviteId, userId);
@@ -155,7 +155,8 @@ export class ConversationController {
    */
   static async removeParticipant(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id, userId } = req.params; // Conversation ID and Target User ID
+      const id = req.params.id as string;
+      const userId = req.params.userId as string;
       const requesterId = (req as any).user?.userId;
 
       await ConversationService.removeParticipant(id, userId, requesterId);
@@ -171,7 +172,7 @@ export class ConversationController {
 
   static async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const requesterId = (req as any).user?.userId;
 
       const conversation = await ConversationService.updateConversation(id, requesterId, req.body);
@@ -214,7 +215,7 @@ export class ConversationController {
    */
   static async join(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const userId = (req as any).user?.userId;
 
       const result = await ConversationService.joinConversation(id, userId);
@@ -233,7 +234,7 @@ export class ConversationController {
    */
   static async getPreview(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const conversation = await ConversationService.getConversationPreview(id);
 
       res.status(200).json({
@@ -250,7 +251,7 @@ export class ConversationController {
    */
   static async getJoinRequests(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const userId = (req as any).user?.userId;
       const requests = await ConversationService.getJoinRequests(id, userId);
 
@@ -268,7 +269,7 @@ export class ConversationController {
    */
   static async resolveJoinRequest(req: Request, res: Response, next: NextFunction) {
     try {
-      const { requestId } = req.params;
+      const requestId = req.params.requestId as string;
       const { status } = req.body; // 'APPROVED' | 'DECLINED'
       const userId = (req as any).user?.userId;
 
@@ -288,7 +289,7 @@ export class ConversationController {
    */
   static async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const id = req.params.id as string;
       const requesterId = (req as any).user?.userId;
 
       await ConversationService.deleteConversation(id, requesterId);
@@ -307,7 +308,8 @@ export class ConversationController {
    */
   static async updateParticipantRole(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id, userId } = req.params;
+      const id = req.params.id as string;
+      const userId = req.params.userId as string;
       const { role } = req.body;
       const requesterId = (req as any).user?.userId;
 
@@ -316,6 +318,26 @@ export class ConversationController {
       res.status(200).json({
         status: 'success',
         data: { participant },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * Resolve a pending message request (Accept/Reject).
+   */
+  static async resolveRequest(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = req.params.id as string;
+      const { action } = req.body; // 'ACCEPT' | 'REJECT'
+      const userId = (req as any).user?.userId;
+
+      const result = await ConversationService.resolveConversationRequest(id, userId, action);
+
+      res.status(200).json({
+        status: 'success',
+        data: result,
       });
     } catch (error) {
       next(error);

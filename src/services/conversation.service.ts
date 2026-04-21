@@ -1,6 +1,7 @@
 import prisma from '../utils/prisma';
-import { ConversationType, ParticipantRole, ChannelInviteStatus } from '@prisma/client';
+import { ConversationType, ParticipantRole, ChannelInviteStatus, ConversationStatus } from '@prisma/client';
 import { getIO } from '../sockets/index';
+import { FriendService } from './friend.service';
 
 /**
  * Service layer for managing conversations and participants.
@@ -19,9 +20,11 @@ export class ConversationService {
     category?: string;
     heroImage?: string;
     isPrivate?: boolean;
+    isPublic?: boolean;
+    isHidden?: boolean;
     parentId?: string;
   }) {
-    const { name, type, createdBy, participantIds, description, category, heroImage, isPrivate, parentId } = data;
+    const { name, type, createdBy, participantIds, description, category, heroImage, isPrivate, isPublic, isHidden, parentId } = data;
 
     // Authorization check for groups (parentId)
     if (parentId) {
@@ -50,11 +53,41 @@ export class ConversationService {
       }
     }
 
-    // 1. Ensure all participant IDs are unique and include the creator
     const allParticipants = Array.from(new Set([...participantIds, createdBy]));
     const inviteeIds = allParticipants.filter(id => id !== createdBy);
 
-    // 2. Perform atomic creation of conversation with ONLY the creator as participant
+    // 2. For DIRECT conversations, check if one already exists
+    if (type === 'DIRECT' && inviteeIds.length === 1) {
+      const existing = await prisma.conversation.findFirst({
+        where: {
+          type: 'DIRECT',
+          AND: [
+            { participants: { some: { userId: createdBy } } },
+            { participants: { some: { userId: inviteeIds[0] } } }
+          ]
+        },
+        include: {
+          participants: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  username: true,
+                  avatar: true,
+                  status: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (existing) {
+        return existing;
+      }
+    }
+
+    // 3. Perform atomic creation of conversation
     const conversation = await prisma.$transaction(async (tx) => {
       const newConversation = await tx.conversation.create({
         data: {
@@ -64,8 +97,15 @@ export class ConversationService {
           category,
           heroImage,
           isPrivate: isPrivate ?? false,
+          isPublic: isPublic ?? false,
+          isHidden: isHidden ?? false,
           creatorId: createdBy,
           parentId,
+          status: type === 'DIRECT' 
+            ? (await FriendService.areFriends(createdBy, inviteeIds[0])) 
+              ? ConversationStatus.ACTIVE 
+              : ConversationStatus.PENDING
+            : ConversationStatus.ACTIVE,
           participants: {
             create: type === 'DIRECT'
               // For DMs, add all participants immediately (no invite needed)
@@ -98,9 +138,11 @@ export class ConversationService {
 
     // 3. For non-DIRECT conversations, send invites to the other participants
     if (type !== 'DIRECT' && inviteeIds.length > 0) {
+      console.log(`[ConversationService] Creating invites for ${inviteeIds.length} users:`, inviteeIds);
       try {
         const io = getIO();
         for (const inviteeId of inviteeIds) {
+          console.log(`[ConversationService] Creating invite for user ${inviteeId} to conversation ${conversation.id}`);
           const invite = await prisma.channelInvite.create({
             data: {
               conversationId: conversation.id,
@@ -112,12 +154,16 @@ export class ConversationService {
               inviter: { select: { id: true, username: true, avatar: true } },
             },
           });
+          console.log(`[ConversationService] Invite created:`, invite.id, '-> emitting to', `user:${inviteeId}`);
           // Real-time push invite to the invitee
           io.to(`user:${inviteeId}`).emit('channel_invite:received', invite);
+          console.log(`[ConversationService] Emitted channel_invite:received to user:${inviteeId}`);
         }
       } catch (err) {
         console.error('[ConversationService] Failed to create invites:', err);
       }
+    } else {
+      console.log(`[ConversationService] No invites to send. type=${type}, inviteeIds=`, inviteeIds);
     }
 
     // 4. Notify creator (and DM participants) about the new conversation
@@ -132,6 +178,70 @@ export class ConversationService {
     }
 
     return conversation;
+  }
+
+  /**
+   * Resolves a pending message request (accept/decline).
+   */
+  static async resolveConversationRequest(id: string, userId: string, action: 'ACCEPT' | 'REJECT') {
+    const conversation = await prisma.conversation.findUnique({
+      where: { id },
+      include: { participants: { select: { userId: true } } }
+    });
+
+    if (!conversation) {
+      const error: any = new Error('Conversation not found');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const isParticipant = conversation.participants.some(p => p.userId === userId);
+    if (!isParticipant) {
+      const error: any = new Error('Not authorized to resolve this request');
+      error.statusCode = 403;
+      throw error;
+    }
+
+    if (action === 'REJECT') {
+      // Per user request: "conversation should just vanish"
+      await prisma.conversation.delete({ where: { id } });
+      
+      try {
+        const io = getIO();
+        conversation.participants.forEach(p => {
+          io.to(`user:${p.userId}`).emit('conversation:deleted', { id });
+        });
+      } catch (err) {
+        console.error('[ConversationService] Socket emission failed:', err);
+      }
+      
+      return { success: true, action: 'REJECTED' };
+    }
+
+    const updated = await prisma.conversation.update({
+      where: { id },
+      data: { status: ConversationStatus.ACTIVE },
+      include: {
+        participants: {
+          include: {
+            user: {
+              select: { id: true, username: true, avatar: true, status: true },
+            },
+          },
+        },
+      },
+    });
+
+    try {
+      const io = getIO();
+      conversation.participants.forEach(p => {
+        io.to(`user:${p.userId}`).emit('conversation:updated', updated);
+      });
+    } catch (err) {
+      console.error('[ConversationService] Socket emission failed:', err);
+    }
+
+    return updated;
   }
 
   /**
@@ -188,7 +298,10 @@ export class ConversationService {
     return await prisma.conversation.findMany({
       where: {
         participants: {
-          some: { userId },
+          some: { 
+            userId,
+            isHidden: false 
+          },
         },
       },
       include: {
@@ -723,7 +836,9 @@ export class ConversationService {
     }
 
     const requester = conversation.participants[0];
-    const isAuthorized = requester?.role === ParticipantRole.ADMIN || conversation.creatorId === requesterId;
+    const isAuthorized = requester?.role === ParticipantRole.ADMIN || 
+                        conversation.creatorId === requesterId || 
+                        conversation.type === 'DIRECT';
 
     if (!isAuthorized) {
       const error: any = new Error('Insufficient permissions to delete this conversation');
@@ -731,24 +846,51 @@ export class ConversationService {
       throw error;
     }
 
-    // Capture participants before deletion for notification
-    const participants = await prisma.conversationParticipant.findMany({
-      where: { conversationId: id },
-      select: { userId: true }
-    });
+    // DIRECT messages: Only delete for the requester (Hide for Me)
+    if (conversation.type === 'DIRECT') {
+      await prisma.conversationParticipant.update({
+        where: {
+          userId_conversationId: {
+            userId: requesterId,
+            conversationId: id
+          }
+        },
+        data: {
+          isHidden: true,
+          lastClearedAt: new Date()
+        }
+      });
 
+      // Notify the requester about the "removal"
+      try {
+        const io = getIO();
+        io.to(`user:${requesterId}`).emit('conversation:removed', { id });
+      } catch (err) {
+        console.error('[ConversationService] Socket emission failed:', err);
+      }
+
+      return { success: true };
+    }
+
+    // CHANNELS and GROUPS: Global Hard Delete
+    // This will remove the conversation for everyone and clean up all participants/messages via Cascade.
     await prisma.conversation.delete({
       where: { id }
     });
 
-    // Notify all participants about the deletion
+    // Notify ALL participants that the conversation is gone
     try {
       const io = getIO();
-      participants.forEach((p) => {
-        io.to(`user:${p.userId}`).emit('conversation:deleted', { id });
-      });
+      
+      // If it's a public channel, we broadcast to everyone so it vanishes from Explore lists too
+      if (conversation.isPublic) {
+        io.emit('conversation:deleted', { id });
+      } else {
+        // If private, only notify the members room
+        io.to(`conversation:${id}`).emit('conversation:deleted', { id });
+      }
     } catch (err) {
-      console.error('[ConversationService] Socket deletion emission failed:', err);
+      console.error('[ConversationService] Global socket emission failed:', err);
     }
 
     return { success: true };

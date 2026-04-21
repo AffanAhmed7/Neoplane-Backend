@@ -174,6 +174,7 @@ export class FriendService {
    * Removes a friend (deletes both directions).
    */
   static async removeFriend(userId: string, friendId: string) {
+    // 1. Delete bidirectional friend rows
     await prisma.friend.deleteMany({
       where: {
         OR: [
@@ -183,10 +184,39 @@ export class FriendService {
       },
     });
 
-    // Emit real-time update to the other party
+    // 2. Find and "Hide" the DIRECT DM conversation between these users
+    const conversation = await prisma.conversation.findFirst({
+      where: {
+        type: 'DIRECT',
+        participants: {
+          every: {
+            userId: { in: [userId, friendId] }
+          }
+        }
+      },
+      include: { participants: true }
+    });
+
+    if (conversation) {
+      // Mark as hidden for both participants
+      await prisma.conversationParticipant.updateMany({
+        where: {
+          conversationId: conversation.id,
+          userId: { in: [userId, friendId] }
+        },
+        data: { isHidden: true }
+      });
+    }
+
+    // 3. Emit real-time update to the other party
     try {
       const io = getIO();
       io.to(`user:${friendId}`).emit('friend:removed', { userId });
+      if (conversation) {
+        // Emit removed to both users so it vanishes from sidebar
+        io.to(`user:${userId}`).emit('conversation:removed', { id: conversation.id });
+        io.to(`user:${friendId}`).emit('conversation:removed', { id: conversation.id });
+      }
     } catch (err) {
       console.error('[FriendService] Socket emission failed:', err);
     }
