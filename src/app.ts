@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 // Load environment variables immediately
 dotenv.config();
+// Triggering restart to load GMAIL_USER and GMAIL_APP_PASSWORD from .env
+
 
 import express from 'express';
 import http from 'http';
@@ -15,6 +17,7 @@ import searchRouter from './routes/search.routes';
 import notificationRouter from './routes/notification.routes';
 import userRouter from './routes/user.routes';
 import friendRouter from './routes/friend.routes';
+import contactRouter from './routes/contact.routes';
 import { apiLimiter, messageLimiter, fileLimiter } from './middleware/rate-limit.middleware';
 import { setupSockets } from './sockets/index';
 
@@ -54,6 +57,7 @@ app.use('/api/search', searchRouter);
 app.use('/api/notifications', notificationRouter);
 app.use('/api/users', userRouter);
 app.use('/api/friends', friendRouter);
+app.use('/api/contact', contactRouter);
 
 // 3. Main health check route
 app.get('/health', (req, res) => {
