@@ -149,10 +149,31 @@ export class AuthService {
             },
           });
         } else {
-          // Reject new users via Google
-          const error: any = new Error('No account found for this Google email. Please register first.');
-          error.statusCode = 404;
-          throw error;
+          // Register new user via Google
+          const baseUsername = email.split('@')[0];
+          let username = baseUsername;
+          let isUnique = false;
+          let counter = 0;
+          while (!isUnique) {
+            const checkUser = await prisma.user.findUnique({ where: { username } });
+            if (!checkUser) {
+              isUnique = true;
+            } else {
+              counter++;
+              username = `${baseUsername}${counter}`;
+            }
+          }
+
+          user = await prisma.user.create({
+            data: {
+              email,
+              username,
+              firebaseUid: uid,
+              provider: 'google',
+              avatar: picture || null,
+              status: 'ONLINE',
+            },
+          });
         }
       }
 
