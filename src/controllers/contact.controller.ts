@@ -66,7 +66,9 @@ export const sendContactEmail = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[Contact Error]', error);
-    return res.status(500).json({
+    // Returning 200 instead of 500 to prevent scary browser console errors,
+    // the frontend will still catch the status: 'error' and show a friendly message.
+    return res.status(200).json({
       status: 'error',
       message: 'Failed to send email. Please ensure your Gmail App Password is correct.'
     });
