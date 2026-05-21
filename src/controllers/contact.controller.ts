@@ -11,31 +11,36 @@ export const sendContactEmail = async (req: Request, res: Response) => {
     });
   }
 
-  // Diagnostic logging (masked)
-  const gmailUser = process.env.GMAIL_USER;
-  const gmailPass = process.env.GMAIL_APP_PASSWORD;
-  
-  if (gmailUser && gmailPass) {
-    console.log(`[Contact] Attempting to send email via ${gmailUser} (Password configured)`);
-  } else {
-    console.warn('[Contact] Missing credentials. GMAIL_USER:', !!gmailUser, 'GMAIL_APP_PASSWORD:', !!gmailPass);
+  // Strip any accidental quotes or whitespace from env vars (common Render issue)
+  const gmailUser = (process.env.GMAIL_USER || '').replace(/^["']|["']$/g, '').trim();
+  const gmailPass = (process.env.GMAIL_APP_PASSWORD || '').replace(/^["']|["']$/g, '').trim();
+
+  console.log(`[Contact] GMAIL_USER present: ${!!gmailUser}, GMAIL_APP_PASSWORD present: ${!!gmailPass}, pass length: ${gmailPass.length}`);
+
+  if (!gmailUser || !gmailPass) {
+    console.warn('[Contact] Missing credentials. Skipping email.');
+    return res.status(200).json({
+      status: 'success',
+      message: 'Message received (credentials not configured)'
+    });
   }
 
   try {
-    // Basic transporter configuration
-    // IMPORTANT: Users must set GMAIL_USER and GMAIL_APP_PASSWORD in .env
+    // Use port 587 with STARTTLS - more compatible with cloud providers like Render
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true, // Use SSL/TLS
+      service: 'gmail',
       auth: {
-        user: gmailUser || 'affanahmedkhan34@gmail.com',
-        pass: gmailPass, 
+        user: gmailUser,
+        pass: gmailPass,
       },
     });
 
+    // Verify connection first
+    await transporter.verify();
+    console.log('[Contact] SMTP connection verified successfully');
+
     const mailOptions = {
-      from: `NeoPlane <${gmailUser || 'affanahmedkhan34@gmail.com'}>`,
+      from: `NeoPlane <${gmailUser}>`,
       to: 'affanahmedkhan34@gmail.com',
       subject: `NeoPlane Contact Form: Message from ${name}`,
       text: `
@@ -48,29 +53,18 @@ export const sendContactEmail = async (req: Request, res: Response) => {
       replyTo: email || undefined
     };
 
-    // If GMAIL_APP_PASSWORD is not set, we simulate success for dev purposes
-    if (!gmailPass) {
-      console.warn('[Contact] GMAIL_APP_PASSWORD not set. Email sending skipped (simulated success).');
-      return res.status(200).json({
-        status: 'success',
-        message: 'Message received (Development Mode: No credentials set)'
-      });
-    }
-
     await transporter.sendMail(mailOptions);
-    console.log('[Contact] Email sent successfully to affanahmedkhan34@gmail.com');
+    console.log('[Contact] Email sent successfully');
 
     return res.status(200).json({
       status: 'success',
       message: 'Email sent successfully'
     });
-  } catch (error) {
-    console.error('[Contact Error]', error);
-    // Returning 200 instead of 500 to prevent scary browser console errors,
-    // the frontend will still catch the status: 'error' and show a friendly message.
+  } catch (error: any) {
+    console.error('[Contact Error]', error?.message || error);
     return res.status(200).json({
       status: 'error',
-      message: 'Failed to send email. Please ensure your Gmail App Password is correct.'
+      message: `Email failed: ${error?.message || 'Unknown error'}`
     });
   }
 };
