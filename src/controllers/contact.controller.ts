@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 export const sendContactEmail = async (req: Request, res: Response) => {
   const { name, email, query } = req.body;
@@ -11,14 +11,11 @@ export const sendContactEmail = async (req: Request, res: Response) => {
     });
   }
 
-  // Strip any accidental quotes or whitespace from env vars (common Render issue)
-  const gmailUser = (process.env.GMAIL_USER || '').replace(/^["']|["']$/g, '').trim();
-  const gmailPass = (process.env.GMAIL_APP_PASSWORD || '').replace(/^["']|["']$/g, '').trim();
+  // Strip any accidental quotes or whitespace from env vars
+  const resendApiKey = (process.env.RESEND_API_KEY || '').replace(/^["']|["']$/g, '').trim();
 
-  console.log(`[Contact] GMAIL_USER present: ${!!gmailUser}, GMAIL_APP_PASSWORD present: ${!!gmailPass}, pass length: ${gmailPass.length}`);
-
-  if (!gmailUser || !gmailPass) {
-    console.warn('[Contact] Missing credentials. Skipping email.');
+  if (!resendApiKey) {
+    console.warn('[Contact] Missing RESEND_API_KEY. Skipping email.');
     return res.status(200).json({
       status: 'success',
       message: 'Message received (credentials not configured)'
@@ -26,35 +23,33 @@ export const sendContactEmail = async (req: Request, res: Response) => {
   }
 
   try {
-    // Use port 587 with STARTTLS - more compatible with cloud providers like Render
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: gmailUser,
-        pass: gmailPass,
-      },
-    });
+    const resend = new Resend(resendApiKey);
 
-    // Verify connection first
-    await transporter.verify();
-    console.log('[Contact] SMTP connection verified successfully');
-
-    const mailOptions = {
-      from: `NeoPlane <${gmailUser}>`,
+    // Resend requires the 'from' address to be onboarding@resend.dev unless you verify a custom domain.
+    // It also restricts 'to' addresses to your registered Resend email address unless you verify a domain.
+    const { data, error } = await resend.emails.send({
+      from: 'NeoPlane Contact Form <onboarding@resend.dev>',
       to: 'affanahmedkhan34@gmail.com',
       subject: `NeoPlane Contact Form: Message from ${name}`,
+      replyTo: email || undefined,
       text: `
-        Name: ${name}
-        Email: ${email || 'Not provided'}
-        
-        Message/Query:
-        ${query}
-      `,
-      replyTo: email || undefined
-    };
+Name: ${name}
+Email: ${email || 'Not provided'}
 
-    await transporter.sendMail(mailOptions);
-    console.log('[Contact] Email sent successfully');
+Message/Query:
+${query}
+      `,
+    });
+
+    if (error) {
+      console.error('[Contact Error]', error);
+      return res.status(200).json({
+        status: 'error',
+        message: `Email failed: ${error.message}`
+      });
+    }
+
+    console.log('[Contact] Email sent successfully via Resend. ID:', data?.id);
 
     return res.status(200).json({
       status: 'success',
